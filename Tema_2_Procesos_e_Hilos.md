@@ -69,3 +69,6 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 
 ## 1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
 -----------
+# BLOQUE DE CONTROL DE PROCESO
+En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
+!
