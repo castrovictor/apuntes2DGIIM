@@ -54,7 +54,7 @@ Estructura de datos asociada a un proceso que contiene la siguiente información
 
 **Bloqueado -> Finalizado.** Si un padre termina la ejecución de un hijo.
 
-#####CAMBIO DE CONTEXTO:
+##### CAMBIO DE CONTEXTO:
 
 Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtiene el control sobre el proceso actualmente en ejecución. 
 
@@ -67,4 +67,4 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 
 		Si es así el proceso en ejecución pasa a estado inalizado y se hace un cambio de contexto. 
 
-##1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
+## 1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
