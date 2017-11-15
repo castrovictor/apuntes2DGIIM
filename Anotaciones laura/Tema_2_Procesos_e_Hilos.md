@@ -77,15 +77,25 @@ En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la 
 
 
 Es una estructura de datos que: 
- 	+ Presenta subestructuras.
- 	+ Define el estado del proceso.
- 	+ Define los recursos que está usando.
+ + Presenta subestructuras.
+ 
+ + Define el estado del proceso.
+ 
+ + Define los recursos que está usando.
+ 
 		tty_struct -> Indica los dispositivos de entrada/salida asociados al proceso.
+		
 		files_struct -> Indica si se están usando archivos. Por defecto, siempre se utiliza esta estructura pues todo proceso 				tiene al menos tres archivo abiertos: Entrada estándar, Salida estándar, Salida de Error.
+		
 		mm_struct -> Indica el espacio de direcciones del proceso, el inicio y el final de la pila, la dirección de las 				librerías, etc... pero nunca el contenido.
+		
+		
 		fs_struct -> Indica la dirección del directorio de trabajo actual, para que el SO busque a partir de ahí. 
+		
 		signal_struct -> Sistema de notificación de eventos. 
+		
 		thread_ info -> Información de bajo nivel. Se verá a continuación más detalladamente.
+		
  
 
  Las subestructuras ``mm_struct`` , ``files_struct``, ``tty_struct``, y ``signal_struct`` se desgajan de la estructura principal por dos motivos:
