@@ -77,9 +77,9 @@ En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la 
 
 
 Es una estructura de datos que: 
- 	+Presenta subestructuras.
- 	+Define el estado del proceso.
- 	+Define los recursos que está usando.
+ 	+ Presenta subestructuras.
+ 	+ Define el estado del proceso.
+ 	+ Define los recursos que está usando.
  	
  
  Las subestructuras ``mm_struct`` , ``files_struct``, ``tty_struct``, y ``sinal_struct`` se desgajan de la estructura principal por dos motivos:
