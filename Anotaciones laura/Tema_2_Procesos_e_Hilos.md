@@ -125,7 +125,7 @@ La importancia de un proceso viene dada por su prioridad, o por su peso de carga
 Cada nivel de prioridad con la orden nice equivale a un 10% de apropiación de la CPU, luego al disminuir un nivel obtienes 10% más de CPU, y viceversa.
 El kernel convierte prioridades a peso de carga con la función `prio_to_weight()`. Los cálculos se realizan con la función `set_load_weight()` . 
 
-El % de CPU que obtiene un proceso se calcula:
+El % de CPU que obtiene un proceso se calcula:  
 `% de CPU del proceso i = Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\]`
 
 ### Ejemplo de uso:
@@ -160,10 +160,10 @@ Como podemos ver, ahora el proceso P2 tiene un 10% menos de CPU del que disponí
 CFS (*Completely Fair Scheduler*) intenta modelar un procesador multitarea perfecto. Este algoritmo tiene como objetivo el maximizar el uso de la CPU pero permitiendo el uso interactivo de la máquina, es decir, tratará de que en ningún momento un usuario vea una bajada de rendimiento. 
 
 El CFS no asigna rodajas de tiempo, sino que asigna una proporción del procesador dependiente de la carga del sistema.
-El tiempo del que dispone un proceso para usar la CPU es:
+El tiempo del que dispone un proceso para usar la CPU es:  
 `
-Tiempo de CPU del proceso i = [ Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\] ] * P 
-`
+Tiempo de CPU del proceso i = [ Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\] ] * P  
+`  
 Siendo P la latencia de planificación, que es el tiempo mínimo que se le va a asignar a un proceso, si el nº de procesos es mayor a `nr_latency`, en otro caso, P es `min_granularidad*n`, siendo n el nº de procesos y `min_granularidad` el mínimo tiempo asignado a cada proceso, ya que si n tiende a infinito, el tiempo asignado a cada proceso tiende a cero, por lo que es necesario definir dicha variable.
 
 En la implementación actual, `sched_latency`=8 (latencia de planificación), `nr_latency`=8, y `min_granularity`= 1 us.
@@ -172,9 +172,9 @@ La clase CFS está definida en `kernell/sched_fair.c`.
 
 ### Tiempo asignado a un proceso:
 
-Como la carga es dinámica, para el cálculo del tiempo asignado se usa un periodo:
-5 o menos procesos: 20 ms
-Sistema cargado: 5 ms más por proceso
+Como la carga es dinámica, para el cálculo del tiempo asignado se usa un periodo:  
+5 o menos procesos: 20 ms  
+Sistema cargado: 5 ms más por proceso  
 `Tiempo asignado = ( Longitud del periodo * peso ) / peso rq `
 
 ### Ejemplo:
