@@ -75,4 +75,7 @@ En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la 
 ![](apuntes2DGIIM/Process+Control+Block-+task_struct.jpg)
 
 
+cómo hacer una modificación
+
+
 
