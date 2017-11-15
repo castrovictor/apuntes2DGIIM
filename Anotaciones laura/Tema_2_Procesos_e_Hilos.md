@@ -80,9 +80,15 @@ Es una estructura de datos que:
  	+ Presenta subestructuras.
  	+ Define el estado del proceso.
  	+ Define los recursos que está usando.
- 	
+		tty_struct -> Indica los dispositivos de entrada/salida asociados al proceso.
+		files_struct -> Indica si se están usando archivos. Por defecto, siempre se utiliza esta estructura pues todo proceso 				tiene al menos tres archivo abiertos: Entrada estándar, Salida estándar, Salida de Error.
+		mm_struct -> Indica el espacio de direcciones del proceso, el inicio y el final de la pila, la dirección de las 				librerías, etc... pero nunca el contenido.
+		fs_struct -> Indica la dirección del directorio de trabajo actual, para que el SO busque a partir de ahí. 
+		signal_struct -> Sistema de notificación de eventos. 
+		thread_ info -> Información de bajo nivel. Se verá a continuación más detalladamente.
  
- Las subestructuras ``mm_struct`` , ``files_struct``, ``tty_struct``, y ``sinal_struct`` se desgajan de la estructura principal por dos motivos:
+
+ Las subestructuras ``mm_struct`` , ``files_struct``, ``tty_struct``, y ``signal_struct`` se desgajan de la estructura principal por dos motivos:
  1. No se asignan cuando no es necesario (Por ejemplo un demonio no tiene asignada una terminal.)
  2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
  
