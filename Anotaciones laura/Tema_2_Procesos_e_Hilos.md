@@ -69,7 +69,7 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 
 ## 1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
 -----------
-##### BLOQUE DE CONTROL DE PROCESO
+### BLOQUE DE CONTROL DE PROCESO
 En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
 
 ![](apuntes2DGIIM/Process+Control+Block-+task_struct.jpg)
@@ -92,10 +92,12 @@ Es una estructura de datos que:
  Una de las funciones es saber en qué CPU se está ejecutando el proceso.
  
  Campos relevantes:
+ 
  +Indicadores ``TIF_SIGPENDING`` y ``TIF_NEED_RESCHED``-
  +``CPU``: número CPU en la que se ejecuta.
  +``preempt_count``.
  
  Macros:
+ 
  +``current_thread_info``: dirección de thread_info del proceso actual.
  +``current``: dirección del descriptor del proceso actual.
