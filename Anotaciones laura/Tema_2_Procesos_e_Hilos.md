@@ -75,7 +75,27 @@ En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la 
 ![](apuntes2DGIIM/Process+Control+Block-+task_struct.jpg)
 
 
-cómo hacer una modificación
 
-
-
+Es una estructura de datos que: 
+ 	+Presenta subestructuras.
+ 	+Define el estado del proceso.
+ 	+Define los recursos que está usando.
+ 	
+ 
+ Las subestructuras ``mm_struct`` , ``files_struct``, ``tty_struct``, y ``sinal_struct`` se desgajan de la estructura principal por dos motivos:
+ 	1. No se asignan cuando no es necesario (Por ejemplo un demonio no tiene asignada una terminal.)
+ 	2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
+ 
+ ###### ESTRUCTURA thread_info
+ Contiene información de bajo nivel sobre el proceso/hilo y permite acceder a la pila kernel.
+ Cuando un proceso se ejecuta en modo usuario o modo supervisor, cada proceso tiene dos pilas (pila usuario y pila kernel). En el caso de linux, esta pila se almacena en ``thread_info``. De esta forma evitamos que el usuario acceda a los datos de la pila generados por el kernel.
+ Una de las funciones es saber en qué CPU se está ejecutando el proceso.
+ 
+ Campos relevantes:
+ +Indicadores ``TIF_SIGPENDING`` y ``TIF_NEED_RESCHED``-
+ +``CPU``: número CPU en la que se ejecuta.
+ +``preempt_count``.
+ 
+ Macros:
+ +``current_thread_info``: dirección de thread_info del proceso actual.
+ +``current``: dirección del descriptor del proceso actual.
