@@ -93,11 +93,11 @@ Es una estructura de datos que:
  
  Campos relevantes:
  
- +Indicadores ``TIF_SIGPENDING`` y ``TIF_NEED_RESCHED``-
- +``CPU``: número CPU en la que se ejecuta.
- +``preempt_count``.
+ + Indicadores ``TIF_SIGPENDING`` y ``TIF_NEED_RESCHED``-
+ + ``CPU``: número CPU en la que se ejecuta.
+ + ``preempt_count``.
  
  Macros:
  
- +``current_thread_info``: dirección de thread_info del proceso actual.
- +``current``: dirección del descriptor del proceso actual.
+ + ``current_thread_info``: dirección de thread_info del proceso actual.
+ + ``current``: dirección del descriptor del proceso actual.
