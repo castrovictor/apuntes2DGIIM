@@ -179,14 +179,14 @@ Sistema cargado: 5 ms más por proceso
 
 ### Ejemplo:
 
-Dados tres procesos, P1, P2, P3, tal que:
-P1: Nice= 5, Peso=335
-P2: Nice=0, Peso=1024
-P3: Nice=-5, Peso=3121
+Dados tres procesos, P1, P2, P3, tal que: \newline
+P1: Nice= 5, Peso=335 \newline
+P2: Nice=0, Peso=1024 \newline
+P3: Nice=-5, Peso=3121 \newline
 ```
-Tiempo asignado a P1=( 20*335 ) / 4550 ⋍ 1.47 
-Tiempo asignado a P2=( 20*1024 ) / 4550 ⋍ 4.5 
-Tiempo asignado a P3=( 20*3121 ) / 4550 ⋍ 13.72
+Tiempo asignado a P1 = ( 20*335 ) / 4550 ⋍ 1.47 
+Tiempo asignado a P2 = ( 20*1024 ) / 4550 ⋍ 4.5 
+Tiempo asignado a P3 = ( 20*3121 ) / 4550 ⋍ 13.72
 ```
 ### Selección de proceso:
 
@@ -197,12 +197,12 @@ La cola de ejecución de CFS es un árbol rojo-negro, un árbol de búsqueda bin
 
 ### Parámetros de planificación:
 
-Lista de las variables relacionadas con planificación:
+Lista de las variables relacionadas con planificación: \newline
 	`% sysctl -A|grep "sched"|grep -v "domain"`
-Valor actual de las variables ajustables:
+Valor actual de las variables ajustables: \newline
 	`/proc/sched_debug`
-Estadísticas cola actual:
+Estadísticas cola actual: \newline
 	`/proc/schedstat`
-Información planificación proceso PID:
+Información planificación proceso PID: \newline
 	`/proc/<PID>/sched`
 
