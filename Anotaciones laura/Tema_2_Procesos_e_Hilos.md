@@ -133,8 +133,8 @@ El % de CPU que obtiene un proceso se calcula:
 Dados dos procesos, P1, P2, ambos con la misma prioridad (`nice` = 0), y por tanto, el mismo peso, 1024, obtenemos:
 
 ```
-% de CPU de P1 : 1024 / 1024+1024 = 50% CPU
-% de CPU de P2 : 1024 / 1024+1024 = 50% CPU
+% de CPU de P1 : 1024 / 1024 + 1024 = 50% CPU
+% de CPU de P2 : 1024 / 1024 + 1024 = 50% CPU
 ```
 
 Si P2 decrementa su prioridad con nice = 1, subiendo así de nivel, decrementa su uso de CPU un 10%: 
@@ -149,8 +149,8 @@ Luego me quedo con el 80% del peso inicial del proceso.
 Así, el % de CPU asignado a cada uno es: 
 
 ```
-% de CPU de P1 : 1024 / 1024+820 ⋍ 55.53% CPU
-% de CPU de P2 : 820 / 1024+820 ⋍ 44.47% CPU
+% de CPU de P1 : 1024 / 1024 + 820 ⋍ 55.53% CPU
+% de CPU de P2 : 820 / 1024 + 820 ⋍ 44.47% CPU
 ```
 
 Como podemos ver, ahora el proceso P2 tiene un 10% menos de CPU del que disponía antes (el 10% de 50 es 5, luego 50-5=45%)
@@ -179,14 +179,18 @@ Sistema cargado: 5 ms más por proceso
 
 ### Ejemplo:
 
-Dados tres procesos, P1, P2, P3, tal que: \newline
-P1: Nice= 5, Peso=335 \newline
-P2: Nice=0, Peso=1024 \newline
-P3: Nice=-5, Peso=3121 \newline
+Dados tres procesos, P1, P2, P3, tal que: 
+\newline
+P1: Nice= 5, Peso=335 
+\newline
+P2: Nice=0, Peso=1024 
+\newline
+P3: Nice=-5, Peso=3121 
+\newline
 ```
-Tiempo asignado a P1 = ( 20*335 ) / 4550 ⋍ 1.47 
-Tiempo asignado a P2 = ( 20*1024 ) / 4550 ⋍ 4.5 
-Tiempo asignado a P3 = ( 20*3121 ) / 4550 ⋍ 13.72
+Tiempo asignado a P1 = ( 20 * 335 ) / 4550 ⋍ 1.47 
+Tiempo asignado a P2 = ( 20 * 1024 ) / 4550 ⋍ 4.5 
+Tiempo asignado a P3 = ( 20 * 3121 ) / 4550 ⋍ 13.72
 ```
 ### Selección de proceso:
 
@@ -197,12 +201,16 @@ La cola de ejecución de CFS es un árbol rojo-negro, un árbol de búsqueda bin
 
 ### Parámetros de planificación:
 
-Lista de las variables relacionadas con planificación: \newline
+Lista de las variables relacionadas con planificación: 
+\newline
 	`% sysctl -A|grep "sched"|grep -v "domain"`
-Valor actual de las variables ajustables: \newline
+Valor actual de las variables ajustables: 
+\newline
 	`/proc/sched_debug`
-Estadísticas cola actual: \newline
+Estadísticas cola actual: 
+\newline
 	`/proc/schedstat`
-Información planificación proceso PID: \newline
+Información planificación proceso PID: 
+\newline
 	`/proc/<PID>/sched`
 
