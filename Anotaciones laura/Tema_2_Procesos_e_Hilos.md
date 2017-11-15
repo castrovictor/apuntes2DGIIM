@@ -116,3 +116,93 @@ Es una estructura de datos que:
  
  + ``current_thread_info``: dirección de thread_info del proceso actual.
  + ``current``: dirección del descriptor del proceso actual.
+
+## PLANIFICADOR CFS
+
+### Pesos de Carga:
+
+La importancia de un proceso viene dada por su prioridad, o por su peso de carga (load weight). Cuanto mayor sea el peso de carga de un proceso mayor será su prioridad (menor será la prioridad asignada con la orden `nice`). 
+Cada nivel de prioridad con la orden nice equivale a un 10% de apropiación de la CPU, luego al disminuir un nivel obtienes 10% más de CPU, y viceversa.
+El kernel convierte prioridades a peso de carga con la función `prio_to_weight()`. Los cálculos se realizan con la función `set_load_weight()` . 
+
+El % de CPU que obtiene un proceso se calcula:
+`% de CPU del proceso i = Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\]`
+
+### Ejemplo de uso:
+
+Dados dos procesos, P1, P2, ambos con la misma prioridad (`nice` = 0), y por tanto, el mismo peso, 1024, obtenemos:
+
+```
+% de CPU de P1 : 1024 / 1024+1024 = 50% CPU
+% de CPU de P2 : 1024 / 1024+1024 = 50% CPU
+```
+
+Si P2 decrementa su prioridad con nice = 1, subiendo así de nivel, decrementa su uso de CPU un 10%: 
+
+`Peso actual de P2 : 1024 / 1.25 = 1024 * 0.8 = 819.2 ⋍ 820` 
+
+El 0.8 se obtiene: 
+
+`% Peso a quitar = % a restar * nº procesos existentes = 10% * 2 = 20%`
+
+Luego me quedo con el 80% del peso inicial del proceso.
+Así, el % de CPU asignado a cada uno es: 
+
+```
+% de CPU de P1 : 1024 / 1024+820 ⋍ 55.53% CPU
+% de CPU de P2 : 820 / 1024+820 ⋍ 44.47% CPU
+```
+
+Como podemos ver, ahora el proceso P2 tiene un 10% menos de CPU del que disponía antes (el 10% de 50 es 5, luego 50-5=45%)
+
+### Clase CFS:
+
+CFS (*Completely Fair Scheduler*) intenta modelar un procesador multitarea perfecto. Este algoritmo tiene como objetivo el maximizar el uso de la CPU pero permitiendo el uso interactivo de la máquina, es decir, tratará de que en ningún momento un usuario vea una bajada de rendimiento. 
+
+El CFS no asigna rodajas de tiempo, sino que asigna una proporción del procesador dependiente de la carga del sistema.
+El tiempo del que dispone un proceso para usar la CPU es:
+`
+Tiempo de CPU del proceso i = [ Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\] ] * P 
+`
+Siendo P la latencia de planificación, que es el tiempo mínimo que se le va a asignar a un proceso, si el nº de procesos es mayor a `nr_latency`, en otro caso, P es `min_granularidad*n`, siendo n el nº de procesos y `min_granularidad` el mínimo tiempo asignado a cada proceso, ya que si n tiende a infinito, el tiempo asignado a cada proceso tiende a cero, por lo que es necesario definir dicha variable.
+
+En la implementación actual, `sched_latency`=8 (latencia de planificación), `nr_latency`=8, y `min_granularity`= 1 us.
+
+La clase CFS está definida en `kernell/sched_fair.c`.
+
+### Tiempo asignado a un proceso:
+
+Como la carga es dinámica, para el cálculo del tiempo asignado se usa un periodo:
+5 o menos procesos: 20 ms
+Sistema cargado: 5 ms más por proceso
+`Tiempo asignado = ( Longitud del periodo * peso ) / peso rq `
+
+### Ejemplo:
+
+Dados tres procesos, P1, P2, P3, tal que:
+P1: Nice= 5, Peso=335
+P2: Nice=0, Peso=1024
+P3: Nice=-5, Peso=3121
+```
+Tiempo asignado a P1=( 20*335 ) / 4550 ⋍ 1.47 
+Tiempo asignado a P2=( 20*1024 ) / 4550 ⋍ 4.5 
+Tiempo asignado a P3=( 20*3121 ) / 4550 ⋍ 13.72
+```
+### Selección de proceso:
+
+El tiempo virtual de ejecución (`vruntime`) es el tiempo de ejecución real normalizado por el número de procesos en ejecución. Este tiempo es gestionado por `update_curr()` definida en `kernel/sched_fair.c`. 
+CFS intenta equilibrar los tiempos virtuales de ejecución de los procesos de tal manera que se elige siempre el proceso con `vruntime` más pequeño.
+
+La cola de ejecución de CFS es un árbol rojo-negro, un árbol de búsqueda binaria autoequilibrado donde la clave de búsqueda es `vruntime`. En el árbol rojo-negro, el proceso con el menor vruntime es el que está más a la izquierda.
+
+### Parámetros de planificación:
+
+Lista de las variables relacionadas con planificación:
+	`% sysctl -A|grep "sched"|grep -v "domain"`
+Valor actual de las variables ajustables:
+	`/proc/sched_debug`
+Estadísticas cola actual:
+	`/proc/schedstat`
+Información planificación proceso PID:
+	`/proc/<PID>/sched`
+
