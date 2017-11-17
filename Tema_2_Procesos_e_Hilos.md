@@ -72,7 +72,7 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 ### BLOQUE DE CONTROL DE PROCESO
 En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
 
-![](apuntes2DGIIM/imagenes/Process+Control+Block-+task_struct.jpg)
+![](apuntes2DGIIM/Process+Control+Block-+task_struct.jpg)
 
 
 
