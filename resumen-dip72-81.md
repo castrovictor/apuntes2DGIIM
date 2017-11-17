@@ -43,7 +43,9 @@ Todos los procesadores actuales cumplen la especificación ***Advanced Configura
 * El **subsitema CPUfreq** es el responsable de ajustar explícitamente la frecuencia del procesador.
 *  Es una estructura modularizada que separa políticas (gobernadores) de mecanismos (*drivers* específicos de CPUs).
 
-![gobernadores](/imagenes/diapo80.png)
+<p align="center"> 
+<img src="imagenes/diapo80.png">
+</p>
 
 #### Gobernadores
 Permiten gestionar la potenciar en base a unos criterios. Es decir, según el gobernador que estemos utilizando, la gestión se hará de una determinada manera. Son los siguientes:
@@ -66,7 +68,9 @@ El administrador puede elegir entre dos algoritmos de planificación, bien optar
 
 Por ejemplo, en un procesador quad-core (4 núcleos) ponemos cada hebra en un núcleo. Al estar todos los procesadores trabajando, aumenta el rendimiento, pero tmabién el consumo. Si optamos por ahorrar energía, el gestor coloca dos hebras en cada núcleo, quedando, por tanto, dos núcleos libres, que se apagan para ahorrar energía. Como desventaja, al tener dos núcleos con dos hebras cada uno, el rendimiento disminuye.
 
-![planificacion energia](/imagenes/diapo84.png)
+<p align="center"> 
+<img src="imagenes/diapo84.png">
+</p>
 
 
 
