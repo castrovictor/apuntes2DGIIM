@@ -3,7 +3,7 @@
 # Hace falta tener instalado Pandoc y LaTex
 
 OUT="pdf"
-sources = Tema_2_Procesos_e_Hilos.md maxi_28_37.md resumen-dip72-81.md
+sources = Tema_2_Procesos_e_Hilos.md
 
 all: $(OUT)/Tema2.pdf
 
