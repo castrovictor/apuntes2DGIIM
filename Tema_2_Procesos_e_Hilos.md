@@ -190,7 +190,8 @@ struct user_desc *tls, pid_t ctid */);
 + El modelo de hilos de Linux es 1:1. Esto significa que un hilo a nivel usuario genera un hilo a nivel kernel (hebra). Todos los hilos usuario son validos para el kernel, por lo que son planificables de forma independiente.
 + clone() es una llamada endémica de Linux, en sistemas UNIX, la llamada para crear procesos (no hilos) es fork(), como ya hemos visto. 
 En Linux, fork() se implementa como:
-~~~clone(SIGCHLD,0)
+~~~
+clone(SIGCHLD,0)
 ~~~
 
 + El prototipo de la llamada al sistema clone() es **clone(flags, stack, ptid, ctid, regs).
