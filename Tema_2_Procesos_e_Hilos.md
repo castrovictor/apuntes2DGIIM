@@ -193,6 +193,7 @@ struct user_desc *tls, pid_t ctid */);
 + El modelo de hilos de Linux es 1:1. Esto significa que un hilo a nivel usuario genera un hilo a nivel kernel (hebra). Todos los hilos usuario son validos para el kernel, por lo que son planificables de forma independiente.
 + clone() es una llamada endémica de Linux, en sistemas UNIX, la llamada para crear procesos (no hilos) es fork(), como ya hemos visto. 
 En Linux, fork() se implementa como:
+
 ~~~
 clone(SIGCHLD,0)
 ~~~
@@ -306,28 +307,33 @@ La política de planificación es:
 ### Planificador: Algoritmo
 
 1. Seleccionar la cola y el proceso actual:
+
 ~~~
 rq=cpu_rq(cpu);
 prev=rq->cur;
 ~~~
 
 2. Desactivar la tarea actual de la cola.
+
 ~~~
 desactivate_task(rq, prev, 1);
 ~~~
 
 3. Seleccionar el siguiente proceso a ejecutar.
+
 ~~~
 next=pick_next_task(rq, next);
 ~~~
 
 4. Invocar el cambio de contexto.
+
 ~~~
 if(likely(prev != next)
 	context_switch(rq, prev, next);
 ~~~
 
 5. Comprobar si hay que replanificar.
+
 ~~~
 if (need_resched())
 	goto need_resched;
