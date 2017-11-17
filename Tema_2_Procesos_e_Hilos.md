@@ -65,7 +65,7 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 	+ **Fallo de memoria:** El procesador se encuentra con una referencia a una dirección de memoria virtual que no se encuentra en memoria. El SO debe traer el bloque que contiene la referencia desde memoria secundaria a memoria principal. Después de que se solicita la operación de E/S para traer el bloque a memoria, el proceso que causó el fallo pasa a estado bloqueado, el SO realiza un cambio de contexto y pone a ejecutar otro proceso. Cuando el bloque solicitado sea accesible, ya en memoria principal, el proceso pasa a preparado.
 	2.	**Traps(Trampas):** Asociadas a una condición de error o excepción  irreversible generada dentro del proceso que se está ejecutando. 
 
-		Si es así el proceso en ejecución pasa a estado inalizado y se hace un cambio de contexto. 
+		Si es así, el proceso en ejecución pasa a estado inicializado y se hace un cambio de contexto. 
 
 ## 1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
 -----------
