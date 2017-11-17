@@ -101,7 +101,7 @@ Es una estructura de datos que:
  1. No se asignan cuando no es necesario (Por ejemplo un demonio no tiene asignada una terminal.)
  2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
  
- ###### ESTRUCTURA thread_info
+ ### ESTRUCTURA thread_info
  Contiene información de bajo nivel sobre el proceso/hilo y permite acceder a la pila kernel.
  Cuando un proceso se ejecuta en modo usuario o modo supervisor, cada proceso tiene dos pilas (pila usuario y pila kernel). En el caso de linux, esta pila se almacena en ``thread_info``. De esta forma evitamos que el usuario acceda a los datos de la pila generados por el kernel.
  Una de las funciones es saber en qué CPU se está ejecutando el proceso.
@@ -116,6 +116,27 @@ Es una estructura de datos que:
  
  + ``current_thread_info``: dirección de thread_info del proceso actual.
  + ``current``: dirección del descriptor del proceso actual.
+ 
+## ESTADO DE LOS PROCESOS
+
+El campo ``state`` del Descriptor de proceso  almacena el estado de un proceso en Linux. un proceso puede encontrarse en los siguientes estados:
++ ``TASK_RUNNING``: el proceso es ejecutable o está en ejecución.
++ ``TASK_INTERRUPTIBLE``: el proceso está bloqueado (dormido) de forma que puede ser interrumpido por una señal.
++ ``TASK_UNINTERRUPTIBLE``: proceso bloqueado no despertable por otra señal.
++ ``TASK_TRACED``: proceso que está siendo "traceado" por otro.
++ ``TASK_STOPPED``: la ejecución del procesose ha detenido por alguna de las señales de control de trabajo.
+
+El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
++ ``EXIT_DEAD``: va a ser eliminado, su padre ha invocado wait().
++ ``EXIT_ZOMBIE``: el padre aún no ha realizado wait().
+
+!(imagen)[https://ibb.co/gH19nm]
+
+Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto.
+
+Para ejecutar un proceso necesito dos llamadas -> fork+exec.
+
+
 
 ## PLANIFICADOR CFS
 
