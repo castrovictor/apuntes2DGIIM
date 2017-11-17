@@ -1,14 +1,14 @@
-#### Hilos kernel
+### Hilos kernel
 
 Son hilos que no tienen espacio de direcciones de usuario. Por tanto, su descriptor tiene `task_struct->mm=NULL`. Realizan labores de sistema (sistuyendo a los demonios de Unix)  Para crearlos, debemos hacerlo desde otro hilo kernel con la funcion kthread_create().
 
-#### Terminar un proceso
+### Terminar un proceso
 
 * Involuntariamente: recibe una señal, y se aplica la acción por defecto, que es terminar.
 
 * Voluntariamente: se utiliza `exit()` o `return()` que finalizan el proceso primero a nivel de biblioteca, o utilizando directamente `_exit()` (llamada al SO) que no da la oportunidad de finalizar el proceso a nivel de biblioteca.
 
-#### Exit()
+### Exit()
 El objetivo de `do_exit()` es borrar todas las referencias del proceso. Sigue estos pasos:
 
 * Activa `PF_EXITING` (bandera que notifica que el proceso va a terminar)
@@ -23,7 +23,7 @@ El objetivo de `do_exit()` es borrar todas las referencias del proceso. Sigue es
 
 Solo liberar la pila kernel, el *thread_info* y *task_struct* para que el padre pueda recuperar el código de finalización, para ello se invoca a `wait()`
 
-#### wait()
+### wait()
 
 Llamada que bloquea a un proceso padre hasta que uno de sus hijos finaliza; cuando esto ocurre, devuelve al llamador el PID del hijo finalizado y el estado de finalización.
 
@@ -37,11 +37,11 @@ Esta función invoca a `release_task()` que:
 
 
 ---
-### 3\. Planificación de la CPU
+## 3\. Planificación de la CPU
 
 El planificador asigna los procesos a ser ejecutados por el procesador/es a lo largo del tiempo, de forma que se cumplan los objetivos de tiempo de respuesta, rendimiento y eficiencia del procesador. 
 
-#### Tipos de planificador:
+### Tipos de planificador:
 * **Planificador a largo plazo:** Es el que toma la decisión de añadir un nuevo proceso al conjuntos de procesos a ser ejecutados. Es decir, toma un programa o trabajo y lo convierte en un proceso que lo añade a la cola de procesos de "listo" del planificador a corto plazo. En algunos sistemas, en vez de pasar directamente a la cola de "listo", pasa primero a la zona de intercambio, es decir, se añaden a la cola del planificador a medio plazo.
 
 * **Planificador a medio plazo:** Es parte de la función de intercambio. Toma la decisión de añadir  un proceso al número de procesos que están parcialmente o totalmente en la memoria principal. (La verdad es que de este no me he entardo muy bien, pero con la ilustración, se pilla la idea aprox.)
@@ -52,13 +52,15 @@ Ilustrativamente:
 
 ![](/imagenes/tipos_planificadores.JPG)
 
+
+
 Podemos distinguir dos tipos de planificación según la política de expulsión:
 
 * **Planificación no apropiativa (nonpreemptive):** *"Sin expulsión".* Una vez que el proceso está ejecutandose, continúa ejecutándose hasta que termine o se bloquee para esperar una E/S o solicitar un sevicio al sistema operativo. Es decir, al proceso actual no se le puede retirar la CPU. Estos se han utilizado como mecanismo de grano grueso de sincronización en modo kernel.
 
 * **Planifcación apropiativa (preemptive):** *"Con expulsión".* Un proceso que está ejecutándose puede ser interrumpido y pasar al estado de listo. Esta decisión puede ser tomada cuando se crea un nuevo proceso, un proceso pasa de bloqueado a listo o por interrupciones de reloj. Los kernel de tiempo-real necesitan ser apropiativos.
  
-#### Algoritmos de planificación:
+### Algoritmos de planificación:
 
 * **FIFO - First in, first out**
 
@@ -103,7 +105,7 @@ pero en la cola CL1, cada vez que es expulsado va a una cola menor. Los procesos
 
 Los procesos largos pueden alargarse demasiado, en especial si no paran de entrar procesos cortos. Una solución es compensar los tiempos de expulsión, la cola CL0 tendrá un quantum de una unidad de tiempo, el CL1 de dos unidades, y así hasta CLn que tendra 2^<sup>n </sup> unidades de t tiempo antes de ser expulsado.
 
-#### Proceso nulo
+### Proceso nulo
 
 Este proceso se crea para siempre haya un proceso que el planificador a corto plazo que pueda encontrar un proceso en preparados para ejecutar. Por tanto, este proceso siempre está listo para ejecutarse y tiene la prioridad más baja.
 
