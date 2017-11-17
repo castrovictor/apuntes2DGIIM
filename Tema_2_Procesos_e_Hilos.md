@@ -135,7 +135,7 @@ El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
 + ``EXIT_DEAD``: va a ser eliminado, su padre ha invocado wait().
 + ``EXIT_ZOMBIE``: el padre aún no ha realizado wait().
 
-![](imagenes/Captura estado procesos.png)
+![](imagenes/Captura estado procesos.png){#id .class width=400 height=400px}
 
 Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto. El primer proceso al arrancar es el `init()`
 
@@ -245,9 +245,7 @@ Recordar que cada proceso se encuentra en una única cola, su rq(runnning queue 
 
 Algunos sistemas operativos, en su rango de valores para prioridades de procesos, éste se parte en tres para cada clase de planificación. Si el rango es de 0-120, pues, por ejemplo 0-40 sería para tiempo-real, 40-80 para CFS... etc.
 
-(2):<p align="center"> 
-<img src="imagenes/scheduler.png" width="400" height="364">
-</p>
+![](imagenes/scheduler.png){#id .class width=400 height=400px}
 
 ### Estructura que define una entidad y sus relaciones
 
@@ -277,7 +275,7 @@ struct sched_entity {
 
 Tabla que muestra las relaciones entre las entidades (recordar estos conceptos de B. de Datos de FS):
 
-![](imagenes/relaciones_entre_estructuras.png)
+![](imagenes/relaciones_entre_estructuras.png){#id .class width=400 height=400px}
 
 ### Política de planificación
 
