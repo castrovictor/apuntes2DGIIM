@@ -169,7 +169,7 @@ La relación entre procesos se almacena en el PCB:
 
 *El padre de un proceso es que lo creó, si el padre(parent) muere, a veces el creado se engancha a otro, conocido como real parent.*
 
-### Manipulación de procesos
+## MANIPULACIÓN DE PROCESOS
 
 Para crear un nuevo proceso necesitamos dos llamadas al sisetema: fork + exec.
 1) El proceso padre llama a fork(), que crea un "duplicado" del sí mismo. 
@@ -179,7 +179,7 @@ Al invcoar a exec() el SO destruye es espacio de direcciones del proceso, solo s
 
 Nota: En Windows, la creación de un proceso es bastante más compleja, solo la llamada necesita 6 parámetros, siendo dos de ellos estructuras de datos.
 
-#### clone();
+### clone();
 
 clone(): crea un proceso o hilo desde otro con las características que se especifican en los argumentos.
 El prototipo de la función en la biblioteca glibc es:
