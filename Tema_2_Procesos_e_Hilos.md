@@ -326,11 +326,9 @@ Implementación del algoritmo de planificación Round-Robin:
 
 ~~~
 RSIreloj(){
-...
-pcb->q--;
-if(q==0)
-	TIF_NEED_RESCHED=1;
-...
+	pcb->q--;
+	if(q==0)
+		TIF_NEED_RESCHED=1;
 }
 ~~~  
 * **SPN - shortest process next**
