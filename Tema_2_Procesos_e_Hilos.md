@@ -228,7 +228,103 @@ CLONE_VM|CLONE_FILES|CLONE_FS|CLONE_THREAD|CLONE_SIGHAND
 
 Comparten todas (mm_struct, files_struct, fs_struct, signal_struct, tty_struct) menos el thread_info. Recordemos que cuando se usa clone(), el proceso hijo pasa a estado no-interrumpible, mientras que el padre se está ejecutando, por lo tanto, sus thread_info, son distintos.
 
+### Clases de Planificación:
 
++ Dado que Linux, como sabíamos, debía ser capaz de soportar tres clases de planificación (2 de tiempo real y una de tiempo compartido), éste es el que se encarga ahora de manejar la información entre el planificador genérico y los planificadores separados. 
++ Cada instancia de la estructura del computador se encarga de una clase de planificación (tiempo-real, tiempo compartido...etc).
++ Forman una jerarquía plana y “rígida” que determina el orden de ejecución:
+	**PROCESOS TIEMPO-REAL >> PROCESOS CFS >> PROCESOS IDLE**
++ Esta jerarquía se produce en compilación, no se puede cambiar de forma dinámica (en ejecución).
+
+Recordar que cada proceso se encuentra en una única cola, su rq(runnning, queue o run queue), dependiendo de la clase de planificación asignada a ese proceso. Además, cada procesador tiene su propia cola para mayor eficiencia. De la lista general, se pasa a una cola con prioridad para cada procesador. Más abajo aparece un dibujo explicativo (2).
+
+Algunos sistemas operativos, en su rango de valores para prioridades de procesos, éste se parte en tres para cada clase de planificación. Si el rango es de 0-120, pues, por ejemplo 0-40 sería para tiempo-real, 40-80 para CFS... etc.
+
+(2):<p align="center"> 
+<img src="imagenes/scheduler.png" width="400" height="364">
+</p>
+
+### Estructura que define una entidad y sus relaciones
+
+Equilibrio de carga.
++ Nodo en árbol rojo-negro.
++ Bool si la entidad está en una cola de ejecución
++ Tiempo de inicio de la ejecución
++ Tiempo consumido de CPU en últ ejecución
++ Valor salvado de sum_exec_start ( ) al quitarle control de la CPU.
+
+En orden, las correspondientes funciones en LINUX:
+
+~~~
+struct sched_entity {
+	struct load_weight load;	/*para equilibrio de carga*/
+	struct rb_node run_node;	/*nodo de arbol rojo-negro*/
+	unsigned int on_rq;			/*indica si la entidad esta planificada en una cola*/
+	
+	u64 exec_start;				/* tiempo inicio ejecución */
+	u64 sum_exec_start;			/*t consumido de CPU*/
+	u64 vrtime;					/*tiempo virtual */
+	u64 prev_sum_exec_runtime; /* valor salvado de sum_exec_start al quitarle control CPU*/
+	. . .
+};
+~~~
+
+Tabla que muestra las relaciones entre las entidades (recordar estos conceptos de B. de Datos de FS):
+
+<p align="center"> 
+<img src="imagenes/relaciones_entre_estructuras.png" width="500" height="432">
+</p>
+
+### Política de planificación
+
+Como ya hemos mencionado antes, los sistemas operativos utilizan un intervalo de números enteros para asignar prioridad a los procesos. En el caso de Linux es [-20,19], con orden inverso eso sí, algo común en prioridades. Cuanto menor es el valor de la prioridad, mayor prioridad tiene.
+
+Por ejemplo, sin ser root sólo se puede cambiar la prioridad de un proceso a un número positivo, y se reservan los negativos a puntos críticos del sistema o más sensibles a fallos por una mala planificación.
+
+La política de planificación es:
++ Se seleccionan en orden creciente de prioridad.
++ A igualdad de prioridad, el que lleve más tiempo esperando.
++ Los procesos de clase FIFO se ejecutan hasta el final o hasta que se bloquee.
+
+### Tipos de planificadores
+
+**Planificador periódico**
++ Se invoca con frecuencia en HZ. También se puede ver como que su periodo es un número fijo de ciclos dee reloj.
++ Dos funciones principales: Manejar estadísticas relativas a planificación. Activar el planificador periódico de la clase de planificación del proceso actual, así le cede la toma de decisiones al planificador de la clase.
+
+**Planificador principal:**
++ La función schedule() se implementa en varios sitios de código del kernel para cambiar de proceso.
++ Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar. De eso también se encarga schedule().
+
+### Planificador: Algoritmo
+
+1. Seleccionar la cola y el proceso actual:
+~~~
+rq=cpu_rq(cpu);
+prev=rq->cur;
+~~~
+
+2. Desactivar la tarea actual de la cola.
+~~~
+desactivate_task(rq, prev, 1);
+~~~
+
+3. Seleccionar el siguiente proceso a ejecutar.
+~~~
+next=pick_next_task(rq, next);
+~~~
+
+4. Invocar el cambio de contexto.
+~~~
+if(likely(prev != next)
+	context_switch(rq, prev, next);
+~~~
+
+5. Comprobar si hay que replanificar.
+~~~
+if (need_resched())
+	goto need_resched;
+~~~
 
 ## PLANIFICADOR CFS
 
