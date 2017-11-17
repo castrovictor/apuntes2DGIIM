@@ -135,7 +135,7 @@ El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
 <img src="imagenes/Captura estado procesos.png">
 </p>
 
-Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto.
+Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto. El primer proceso al arrancar es el `init()`
 
 
 ### Transiciones entre estados
@@ -145,6 +145,7 @@ Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la 
 + ``wakeup()``: desbloquea/despierta a un proceso cuando se ha producido el evento por el que espera.
 + ``schedule()``: planificador – decide que proceso tiene el control de la CPU
 
+*En Linux puedes usar clone() para crear un proceso, pero en el resto de Unix no, hay que usar fork(). Cuando Linux usa fork(), llama a clone().*
 
 ### Colas de estado
 Existe una lista de procesos doblemente enlazada con todos los procesos del sistema y a la cabeza está el swapper (PID=0, ``task_struct_init_task``).
@@ -163,13 +164,15 @@ La relación entre procesos se almacena en el PCB:
 + ``children``: lista de hijos.
 …
 
+*El padre de un proceso es que lo creó, si el padre(parent) muere, a veces el creado se engancha a otro, conocido como real parent.*
+
 ### Manipulación de procesos
 
 Para crear un nuevo proceso necesitamos dos llamadas al sisetema: fork + exec.
 1) El proceso padre llama a fork(), que crea un "duplicado" del sí mismo. 
 2) El propio proceso hijo invoca la llamada exec().
 Exec() se encarga de ejecutar un programa dentro de un proceso existente a partir del ejecutable que se pasa como argumento. 
-Al invoar a exec() el SO destruye es espacio de direcciones del proceso, solo se mantiene el descriptor de proceso y se construye un nuevo espacio de direcciones de usuario a partir de la información del formato ELF(Executable and Linkable format) del programa invocado.
+Al invcoar a exec() el SO destruye es espacio de direcciones del proceso, solo se mantiene el descriptor de proceso y se construye un nuevo espacio de direcciones de usuario a partir de la información del formato ELF(Executable and Linkable format) del programa invocado.
 
 Nota: En Windows, la creación de un proceso es bastante más compleja, solo la llamada necesita 6 parámetros, siendo dos de ellos estructuras de datos.
 
