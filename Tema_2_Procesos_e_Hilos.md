@@ -171,11 +171,11 @@ La relación entre procesos se almacena en el PCB:
 
 ## MANIPULACIÓN DE PROCESOS
 
-Para crear un nuevo proceso necesitamos dos llamadas al sisetema: fork + exec.
+Para crear un nuevo proceso necesitamos dos llamadas al sistema: fork + exec.
 1) El proceso padre llama a fork(), que crea un "duplicado" del sí mismo. 
 2) El propio proceso hijo invoca la llamada exec().
 Exec() se encarga de ejecutar un programa dentro de un proceso existente a partir del ejecutable que se pasa como argumento. 
-Al invcoar a exec() el SO destruye es espacio de direcciones del proceso, solo se mantiene el descriptor de proceso y se construye un nuevo espacio de direcciones de usuario a partir de la información del formato ELF(Executable and Linkable format) del programa invocado.
+Al invocar a exec() el SO destruye el espacio de direcciones del proceso, solo se mantiene el descriptor de proceso y se construye un nuevo espacio de direcciones de usuario a partir de la información del formato ELF(Executable and Linkable format) del programa invocado.
 
 Nota: En Windows, la creación de un proceso es bastante más compleja, solo la llamada necesita 6 parámetros, siendo dos de ellos estructuras de datos.
 
