@@ -110,7 +110,7 @@ Es una estructura de datos que:
  
  + Indicadores ``TIF_SIGPENDING`` y ``TIF_NEED_RESCHED``-
  + ``CPU``: número CPU en la que se ejecuta.
- + ``preempt_count``.
+ + ``preempt_count``: Cuenta las veces que se le quita el control al proceso.
  
  Macros:
  
@@ -122,9 +122,9 @@ Es una estructura de datos que:
 
 El campo ``state`` del Descriptor de proceso  almacena el estado de un proceso en Linux. un proceso puede encontrarse en los siguientes estados:
 + ``TASK_RUNNING``: el proceso es ejecutable o está en ejecución.
-+ ``TASK_INTERRUPTIBLE``: el proceso está bloqueado (dormido) de forma que puede ser interrumpido por una señal.
-+ ``TASK_UNINTERRUPTIBLE``: proceso bloqueado no despertable por otra señal.
-+ ``TASK_TRACED``: proceso que está siendo "traceado" por otro.
++ ``TASK_INTERRUPTIBLE``: el proceso está bloqueado (dormido) de forma que puede ser interrumpido por una señal. Ejemplo: Espera de entrada de teclado.
++ ``TASK_UNINTERRUPTIBLE``: proceso bloqueado no despertable por otra señal. Ejemplo: Espera de lectura de disco que no se produce.
++ ``TASK_TRACED``: proceso que está siendo "traceado" por otro. Ejemplo: Cuando un proceso está siendo depurado, y su ejecución se para en un punto de ruptura.
 + ``TASK_STOPPED``: la ejecución del procesose ha detenido por alguna de las señales de control de trabajo.
 
 El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
