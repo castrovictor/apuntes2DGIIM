@@ -1,6 +1,6 @@
 #### Hilos kernel
 
-Son hilos que no tienen espacio de direcciones de usuario. Por tanto, su descriptor tiene task_struct->mm=NULL. Realizan labores de sistema (sistuyendo a los demonios de Unix)  Para crearlos, debemos hacerlo desde otro hilo kernel con la funcion kthread_create().
+Son hilos que no tienen espacio de direcciones de usuario. Por tanto, su descriptor tiene `task_struct->mm=NULL`. Realizan labores de sistema (sistuyendo a los demonios de Unix)  Para crearlos, debemos hacerlo desde otro hilo kernel con la funcion kthread_create().
 
 #### Terminar un proceso
 
@@ -9,9 +9,9 @@ Son hilos que no tienen espacio de direcciones de usuario. Por tanto, su descrip
 * Voluntariamente: se utiliza `exit()` o `return()` que finalizan el proceso primero a nivel de biblioteca, o utilizando directamente `_exit()` (llamada al SO) que no da la oportunidad de finalizar el proceso a nivel de biblioteca.
 
 #### Exit()
-El objetivo de do_exit() es borrar todas las referencias del proceso. Sigue estos pasos:
+El objetivo de `do_exit()` es borrar todas las referencias del proceso. Sigue estos pasos:
 
-* Activa *PF_EXITING* (bandera que notifica que el proceso va a terminar)
+* Activa `PF_EXITING` (bandera que notifica que el proceso va a terminar)
 
 * Decrementa los contadores de uso de *mm_struct*, *fs_struct* y *files_struct*.  Si estos contadores alcanzan el valor 0, se liberan los recursos.
 
@@ -19,21 +19,23 @@ El objetivo de do_exit() es borrar todas las referencias del proceso. Sigue esto
 
 * Envía al padre la señal de finalización; si tiene algún hijo le busca un padre en el grupo o el initi, y pone el estado a *TASK_ZOMBIE*.
 
-* Invoca a *schedule()* para ejecutar otro proceso.
+* Invoca a `schedule()`para ejecutar otro proceso.
 
-Solo liberar la pila kernel, el *thread_info* y *task_struct* para que el padre pueda recuperar el código de finalización, para ello se invoca a *wait()*
+Solo liberar la pila kernel, el *thread_info* y *task_struct* para que el padre pueda recuperar el código de finalización, para ello se invoca a `wait()`
 
 #### wait()
 
 Llamada que bloquea a un proceso padre hasta que uno de sus hijos finaliza; cuando esto ocurre, devuelve al llamador el PID del hijo finalizado y el estado de finalización.
 
-Esta función invoca a *release_task() que:
+Esta función invoca a `release_task()` que:
 
 * Elimina el descriptor de la lista de tareas.
 
 * Si es la última tarea de su grupo, y el líder está zombi, notifica al padre del líder zombi.
 
 * Libera la memoria de la pila kernel, *thread_info* y *task_struct*
+
+
 ---
 ### 3\. Planificación de la CPU
 
