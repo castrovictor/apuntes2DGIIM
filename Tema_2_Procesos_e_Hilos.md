@@ -68,7 +68,7 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 		Si es así, el proceso en ejecución pasa a estado inicializado y se hace un cambio de contexto. 
 
 ## 1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
------------
+
 ### BLOQUE DE CONTROL DE PROCESO
 En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
 
@@ -77,6 +77,7 @@ En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la 
 
 
 Es una estructura de datos que: 
+
  + Presenta subestructuras.
  
  + Define el estado del proceso.
@@ -102,6 +103,7 @@ Es una estructura de datos que:
  2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
  
  ### ESTRUCTURA thread_info
+ 
  Contiene información de bajo nivel sobre el proceso/hilo y permite acceder a la pila kernel.
  Cuando un proceso se ejecuta en modo usuario o modo supervisor, cada proceso tiene dos pilas (pila usuario y pila kernel). En el caso de linux, esta pila se almacena en ``thread_info``. De esta forma evitamos que el usuario acceda a los datos de la pila generados por el kernel.
  Una de las funciones es saber en qué CPU se está ejecutando el proceso.
@@ -160,6 +162,7 @@ Para gestionar procesos de forma conjunta, todos los procesos forman parte de un
 Todo proceso tiene exactamente un padre.
 Procesos hermanos (``siblings``) = procesos con el mismo padre.
 La relación entre procesos se almacena en el PCB:
+
 + ``parent``: puntero al padre
 + ``children``: lista de hijos.
 …
@@ -290,10 +293,12 @@ La política de planificación es:
 ### Tipos de planificadores
 
 **Planificador periódico**
+
 + Se invoca con frecuencia en HZ. También se puede ver como que su periodo es un número fijo de ciclos dee reloj.
 + Dos funciones principales: Manejar estadísticas relativas a planificación. Activar el planificador periódico de la clase de planificación del proceso actual, así le cede la toma de decisiones al planificador de la clase.
 
 **Planificador principal:**
+
 + La función schedule() se implementa en varios sitios de código del kernel para cambiar de proceso.
 + Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar. De eso también se encarga schedule().
 
