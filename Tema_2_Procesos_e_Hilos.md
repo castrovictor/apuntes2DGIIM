@@ -137,12 +137,6 @@ El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
 
 Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto.
 
-Para ejecutar un proceso necesito dos llamadas -> fork+exec.
-
-NOTA: Cuando uso exec lo que hago es: Código, Datos, Pila, SO
-Cuando uso `fork` copio el stack de arriba de manera idéntica y tengo 2 procesos ejecutando igual. Cuando el segundo hace un `exec()`  el ejecutable lo que hace es destruir la memoria
-nueva, se va al ejecutable y este le dice cuáles son sus características y el SO lo que hace es construir un nuevo espacio a partir del anterior (no el primero).
-
 
 ### Transiciones entre estados
 + ``clone()``: llamada al sistema para crear un proceso/hilo.
@@ -168,6 +162,68 @@ La relación entre procesos se almacena en el PCB:
 + ``parent``: puntero al padre
 + ``children``: lista de hijos.
 …
+
+### Manipulación de procesos
+
+Para crear un nuevo proceso necesitamos dos llamadas al sisetema: fork + exec.
+1) El proceso padre llama a fork(), que crea un "duplicado" del sí mismo. 
+2) El propio proceso hijo invoca la llamada exec().
+Exec() se encarga de ejecutar un programa dentro de un proceso existente a partir del ejecutable que se pasa como argumento. 
+Al invoar a exec() el SO destruye es espacio de direcciones del proceso, solo se mantiene el descriptor de proceso y se construye un nuevo espacio de direcciones de usuario a partir de la información del formato ELF(Executable and Linkable format) del programa invocado.
+
+Nota: En Windows, la creación de un proceso es bastante más compleja, solo la llamada necesita 6 parámetros, siendo dos de ellos estructuras de datos.
+
+#### clone();
+
+clone(): crea un proceso o hilo desde otro con las características que se especifican en los argumentos.
+El prototipo de la función en la biblioteca glibc es:
+
+~~~
+#define <sched.h>
+int clone(int (*func() (void *), void *child_stack,
+int flags, void *func_arg, … /*pid_t *ptid,
+struct user_desc *tls, pid_t ctid */);
+~~~
++ El modelo de hilos de Linux es 1:1. Esto significa que un hilo a nivel usuario genera un hilo a nivel kernel (hebra). Todos los hilos usuario son validos para el kernel, por lo que son planificables de forma independiente.
++ clone() es una llamada endémica de Linux, en sistemas UNIX, la llamada para crear procesos (no hilos) es fork(), como ya hemos visto. 
+En Linux, fork() se implementa como:
+~~~clone(SIGCHLD,0)
+~~~
+
++ El prototipo de la llamada al sistema clone() es **clone(flags, stack, ptid, ctid, regs).
+
+**FLAGS:
+
++ CLONE_FILES.- hilo padre e hijo comparten los mismos archivos abiertos. 
++ CLONE_FS.- padre e hijo comparten la información del sistema de archivos. 
++ CLONE_VM.-  padre e hijo comparten el mismo espacio de direcciones. (MM_STRUCT)
++ CLONE_SIGHAND.- comparten los manejadores de señales y señales bloqueadas.
++ CLONE_THREAD.- el padre y el hijo pertenecen al mismo grupo. 
+
+Si preguntamos a la hebra por su identificador nos dará el identificador del grupo, si queremos el TID, necesitamos usar una macro SYSCALL, pues no tenemos una llamada en la librería para conseguir esa información. 
+
+**¿CÓMO FUNCIONA clone()?
+
+1. dup_task_struct: copia el descriptor del proceso actual (task_struct, pila y thread_info).
+2. alloc_pid: le asigna un nuevo PID
+3. Al inicializar la task_struct, diferenciamos los hilos padre hijo y ponemos a este último en estado no-interrumpible.
+4. sched_fork: marcamos el hilo como TASK_RUNNING y se inicializa información sobre planificación.
+5. Copiamos o compartimos componentes según los flags.
+6. Asignamos ID, relaciones de parentesco, etc.
+
+**Observaciones:
+
+ + No deben aparecer juntos: CLONE_NEWNS y CLONE_FS.
+ + Deben aparecer siempre juntos: CLONE_SIGHAND  con CLONE_THREAD o CLONE_VM.
+ + Cuando usamos CLONE_LOQUESEA , la estructura loquesea_struct no se copia, se comparte.
+ + Existe un contador de referencias que lleva el conteo de número de hilos que comparte un proceso. Si el contador llega a 0, no habrá más estructuras compartidas, por lo tanto, el proceso se libera.
+ 
+**Actividad Propuesta: 
+Sabiendo esto:
+CLONE_VM|CLONE_FILES|CLONE_FS|CLONE_THREAD|CLONE_SIGHAND
+¿Qué estructuras comparten el padre y el hijo?
+
+Comparten todas (mm_struct, files_struct, fs_struct, signal_struct, tty_struct) menos el thread_info. Recordemos que cuando se usa clone(), el proceso hijo pasa a estado no-interrumpible, mientras que el padre se está ejecutando, por lo tanto, sus thread_info, son distintos.
 
 
 
