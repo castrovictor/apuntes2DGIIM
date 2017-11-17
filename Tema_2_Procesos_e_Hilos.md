@@ -124,6 +124,7 @@ Contiene información de bajo nivel sobre el proceso/hilo y permite acceder a la
 ## ESTADO DE LOS PROCESOS
 
 El campo ``state`` del Descriptor de proceso  almacena el estado de un proceso en Linux. un proceso puede encontrarse en los siguientes estados:
+
 + ``TASK_RUNNING``: el proceso es ejecutable o está en ejecución.
 + ``TASK_INTERRUPTIBLE``: el proceso está bloqueado (dormido) de forma que puede ser interrumpido por una señal. Ejemplo: Espera de entrada de teclado.
 + ``TASK_UNINTERRUPTIBLE``: proceso bloqueado no despertable por otra señal. Ejemplo: Espera de lectura de disco que no se produce.
@@ -134,9 +135,7 @@ El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
 + ``EXIT_DEAD``: va a ser eliminado, su padre ha invocado wait().
 + ``EXIT_ZOMBIE``: el padre aún no ha realizado wait().
 
-<p align="center"> 
-<img src="imagenes/Captura estado procesos.png">
-</p>
+![](imagenes/Captura estado procesos.png)
 
 Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto. El primer proceso al arrancar es el `init()`
 
@@ -201,7 +200,7 @@ clone(SIGCHLD,0)
 
 + El prototipo de la llamada al sistema clone() es **clone(flags, stack, ptid, ctid, regs).
 
-**FLAGS:
+#### FLAGS:
 
 + CLONE_FILES.- hilo padre e hijo comparten los mismos archivos abiertos. 
 + CLONE_FS.- padre e hijo comparten la información del sistema de archivos. 
@@ -211,7 +210,7 @@ clone(SIGCHLD,0)
 
 Si preguntamos a la hebra por su identificador nos dará el identificador del grupo, si queremos el TID, necesitamos usar una macro SYSCALL, pues no tenemos una llamada en la librería para conseguir esa información. 
 
-**¿CÓMO FUNCIONA clone()?
+#### ¿CÓMO FUNCIONA clone()?
 
 1. dup_task_struct: copia el descriptor del proceso actual (task_struct, pila y thread_info).
 2. alloc_pid: le asigna un nuevo PID
@@ -220,14 +219,14 @@ Si preguntamos a la hebra por su identificador nos dará el identificador del gr
 5. Copiamos o compartimos componentes según los flags.
 6. Asignamos ID, relaciones de parentesco, etc.
 
-**Observaciones:
+#### Observaciones:
 
  + No deben aparecer juntos: CLONE_NEWNS y CLONE_FS.
  + Deben aparecer siempre juntos: CLONE_SIGHAND  con CLONE_THREAD o CLONE_VM.
  + Cuando usamos CLONE_LOQUESEA , la estructura loquesea_struct no se copia, se comparte.
  + Existe un contador de referencias que lleva el conteo de número de hilos que comparte un proceso. Si el contador llega a 0, no habrá más estructuras compartidas, por lo tanto, el proceso se libera.
  
-**Actividad Propuesta: 
+#### Actividad Propuesta: 
 Sabiendo esto:
 CLONE_VM|CLONE_FILES|CLONE_FS|CLONE_THREAD|CLONE_SIGHAND
 ¿Qué estructuras comparten el padre y el hijo?
@@ -278,9 +277,7 @@ struct sched_entity {
 
 Tabla que muestra las relaciones entre las entidades (recordar estos conceptos de B. de Datos de FS):
 
-<p align="center"> 
-<img src="imagenes/relaciones_entre_estructuras.png" width="500" height="432">
-</p>
+![](imagenes/relaciones_entre_estructuras.png)
 
 ### Política de planificación
 

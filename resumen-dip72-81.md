@@ -43,17 +43,25 @@ Todos los procesadores actuales cumplen la especificación ***Advanced Configura
 * El **subsitema CPUfreq** es el responsable de ajustar explícitamente la frecuencia del procesador.
 *  Es una estructura modularizada que separa políticas (gobernadores) de mecanismos (*drivers* específicos de CPUs).
 
-<p align="center"> 
-<img src="imagenes/diapo80.png">
-</p>
+![](imagenes/diapo80.png)
 
 #### Gobernadores
 Permiten gestionar la potenciar en base a unos criterios. Es decir, según el gobernador que estemos utilizando, la gestión se hará de una determinada manera. Son los siguientes:
-* **Perfomance** - mantiene la CPU a la máxima frecuencia posible dentro de un rango especificado por el usuario
-* **Powersave** - intentan ahorrar energía, manteniendo la CPU a la menor frecuencia posible dentro de un rango
-* **Userspace** -exporta la información disponible de la frecuencia a nivel usuario (sysfs) permitiendo su control al mismo. Permite a cualquier espacio de programa de usuario ajustar la frecuencia del procesador. Es el que más libertad dar para ajustar la velocidad del procesador. Más información en https://www.ibm.com/support/knowledgecenter/en/linuxonibm/liaai.cpufreq/TheUserspaceGovernor.htm
-* **On-demand** - ajusta la frecuencia dependiendo del uso actual de la CPU.
-* **Conservative** - funciona al igual que el *on-demand*, pero los ajustes son menos agresivos.
+
+* **Perfomance** - mantiene la CPU a la máxima frecuencia posible
+  dentro de un rango especificado por el usuario
+* **Powersave** - intentan ahorrar energía, manteniendo la CPU a la
+  menor frecuencia posible dentro de un rango
+* **Userspace** -exporta la información disponible de la frecuencia a
+  nivel usuario (sysfs) permitiendo su control al mismo. Permite a
+  cualquier espacio de programa de usuario ajustar la frecuencia del
+  procesador. Es el que más libertad dar para ajustar la velocidad del
+  procesador. Más información en
+  https://www.ibm.com/support/knowledgecenter/en/linuxonibm/liaai.cpufreq/TheUserspaceGovernor.htm
+* **On-demand** - ajusta la frecuencia dependiendo del uso actual de
+  la CPU.
+* **Conservative** - funciona al igual que el *on-demand*, pero los
+  ajustes son menos agresivos.
 
 Existen una serie de herramientas para la gestión de energía y potencia del sistema, como cpufreqtils, cpupower, powerTop y TLP.
 
