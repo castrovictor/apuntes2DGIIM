@@ -3,13 +3,14 @@
 # Hace falta tener instalado Pandoc y LaTex
 
 OUT="pdf"
+TEMP="templates/eisvogel.latex"
 sources = Tema_2_Procesos_e_Hilos.md
 
 all: $(OUT)/Tema2.pdf
 
 $(OUT)/Tema2.pdf : $(sources)
 	pandoc \
-		--from markdown --template eisvogel \
+		--from markdown --template $(TEMP) \
 		--listing \
 		-f markdown $^ \
 		--latex-engine=xelatex \

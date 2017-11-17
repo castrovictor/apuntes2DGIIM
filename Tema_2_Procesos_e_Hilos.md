@@ -73,7 +73,7 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 
 En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
 
-![](apuntes2DGIIM/Process+Control+Block-+task_struct.jpg)
+![](Process+Control+Block-+task_struct.jpg){#id .class width=500 height=500px}
 
 
 
@@ -103,7 +103,8 @@ Es una estructura de datos que:
  1. No se asignan cuando no es necesario (Por ejemplo un demonio no tiene asignada una terminal.)
  2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
  
- ### ESTRUCTURA thread_info
+### ESTRUCTURA thread_info
+ 
  Contiene información de bajo nivel sobre el proceso/hilo y permite acceder a la pila kernel.
  Cuando un proceso se ejecuta en modo usuario o modo supervisor, cada proceso tiene dos pilas (pila usuario y pila kernel). En el caso de linux, esta pila se almacena en ``thread_info``. De esta forma evitamos que el usuario acceda a los datos de la pila generados por el kernel.
  Una de las funciones es saber en qué CPU se está ejecutando el proceso.
@@ -133,13 +134,8 @@ El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
 + ``EXIT_DEAD``: va a ser eliminado, su padre ha invocado wait().
 + ``EXIT_ZOMBIE``: el padre aún no ha realizado wait().
 
-<<<<<<< HEAD
 ![](imagenes/Captura estado procesos.png){#id .class width=400 height=400px}
-=======
-<p align="center"> 
-<img src="imagenes/Captura estado procesos.png">
-</p>
->>>>>>> d4663ec7105a34af89e5cd9db47d9f549b589c3a
+
 
 Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto. El primer proceso al arrancar es el `init()`
 
@@ -291,7 +287,7 @@ El planificador asigna los procesos a ser ejecutados por el procesador/es a lo l
 
 Ilustrativamente:
 
-![](/imagenes/tipos_planificadores.JPG)
+![](imagenes/tipos_planificadores.JPG)
 
 
 
@@ -416,13 +412,8 @@ struct sched_entity {
 
 Tabla que muestra las relaciones entre las entidades (recordar estos conceptos de B. de Datos de FS):
 
-<<<<<<< HEAD
 ![](imagenes/relaciones_entre_estructuras.png){#id .class width=400 height=400px}
-=======
-<p align="center"> 
-<img src="imagenes/relaciones_entre_estructuras.png" width="500" height="432">
-</p>
->>>>>>> d4663ec7105a34af89e5cd9db47d9f549b589c3a
+
 
 ### Política de planificación
 
@@ -577,10 +568,8 @@ Los procesos de tiempo-real ejecutables que existan en el sistema se ejecutarán
 2. De hacerlo, si se realiza estática o dinámicamente
 3. El resultado del análisis produce un plan de planificación acorde al cual se desarrollarán las tareas en tiempo de ejecución.
 
-La cola de ejecución es simple, como se aprecia en la figura:
-<p align="center"> 
-<img src="imagenes/imgdiapo73.png">
-</p>
+![](imagenes/imgdiapo73.png){#id .class width=300 height=400px}
+
 
 El *mapa de bits* permite seleccionar la cola con procesos en 2 (64 bits) o 4 (32 bits) instrucciones en ensamblador.
 
