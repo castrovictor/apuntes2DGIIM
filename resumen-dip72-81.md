@@ -5,7 +5,9 @@ Los procesos de tiempo-real ejecutables que existan en el sistema se ejecutarán
 3. El resultado del análisis produce un plan de planificación acorde al cual se desarrollarán las tareas en tiempo de ejecución.
 
 La cola de ejecución es simple, como se aprecia en la figura:
-<center>[imagen cola ejecucion](/imagenes/imgdiapo73.png)</center>
+<p align="center"> 
+<img src="imagenes/imgdiapo73.png">
+</p>
 
 El *mapa de bits* permite seleccionar la cola con procesos en 2 (64 bits) o 4 (32 bits) instrucciones en ensamblador.
 
