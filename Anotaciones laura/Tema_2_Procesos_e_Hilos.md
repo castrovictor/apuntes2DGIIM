@@ -131,7 +131,9 @@ El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
 + ``EXIT_DEAD``: va a ser eliminado, su padre ha invocado wait().
 + ``EXIT_ZOMBIE``: el padre aún no ha realizado wait().
 
-!(transicion)[https://image.ibb.co/meNtDR/Captura_estado_procesos.png]
+<p align="center"> 
+<img src="imagenes/Captura estado procesos.png">
+</p>
 
 Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto.
 
