@@ -233,7 +233,7 @@ Comparten todas (mm_struct, files_struct, fs_struct, signal_struct, tty_struct) 
 
 + Dado que Linux, como sabíamos, debía ser capaz de soportar tres clases de planificación (2 de tiempo real y una de tiempo compartido), éste es el que se encarga ahora de manejar la información entre el planificador genérico y los planificadores separados. 
 + Cada instancia de la estructura del computador se encarga de una clase de planificación (tiempo-real, tiempo compartido...etc).
-+ Forman una jerarquía plana y “rígida” que determina el orden de ejecución:
++ Forman una jerarquía plana y “rígida” que determina el orden de ejecución:  
 	**PROCESOS TIEMPO-REAL >> PROCESOS CFS >> PROCESOS IDLE**
 + Esta jerarquía se produce en compilación, no se puede cambiar de forma dinámica (en ejecución).
 
