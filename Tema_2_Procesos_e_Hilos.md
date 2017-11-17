@@ -322,6 +322,18 @@ Los intervalos de tiempos que se usan se llaman *quantum*, es necesario comentar
 
 Una desventaja es que los procesos que necesitan E/S se bloquean antes de tiempo y tienen que pasar a bloqueados, mientras que los que tienen limitado el procesador usan siempre todo el quantum, por lo que hay una desigualdad en la distribución de tiempo.
 
+Imlementación del algoritmo de planificación Round-Robin:
+
+~~~
+RSIreloj(){
+...
+pcb->q--;
+if(q==0)
+	TIF_NEED_RESCHED=1;
+...
+}
+~~~
+
 * **SPN - shortest process next**
 
 Es una política no apropiativa que elige en proceso con el tiempo de procesamiento más corto.
