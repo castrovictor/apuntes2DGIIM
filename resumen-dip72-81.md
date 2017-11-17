@@ -68,9 +68,8 @@ El administrador puede elegir entre dos algoritmos de planificación, bien optar
 
 Por ejemplo, en un procesador quad-core (4 núcleos) ponemos cada hebra en un núcleo. Al estar todos los procesadores trabajando, aumenta el rendimiento, pero tmabién el consumo. Si optamos por ahorrar energía, el gestor coloca dos hebras en cada núcleo, quedando, por tanto, dos núcleos libres, que se apagan para ahorrar energía. Como desventaja, al tener dos núcleos con dos hebras cada uno, el rendimiento disminuye.
 
-<p align="center"> 
-<img src="imagenes/diapo84.png">
-</p>
+![](imagenes/diapo84.png)
+
 
 
 
