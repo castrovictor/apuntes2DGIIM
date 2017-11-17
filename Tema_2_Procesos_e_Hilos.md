@@ -73,7 +73,7 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 
 En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
 
-![](apuntes2DGIIM/Process+Control+Block-+task_struct.jpg)
+![](Process+Control+Block-+task_struct.jpg)
 
 
 
@@ -103,8 +103,9 @@ Es una estructura de datos que:
  1. No se asignan cuando no es necesario (Por ejemplo un demonio no tiene asignada una terminal.)
  2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
  
- ### ESTRUCTURA thread_info
- Contiene información de bajo nivel sobre el proceso/hilo y permite acceder a la pila kernel.
+### ESTRUCTURA thread_info
+
+Contiene información de bajo nivel sobre el proceso/hilo y permite acceder a la pila kernel.
  Cuando un proceso se ejecuta en modo usuario o modo supervisor, cada proceso tiene dos pilas (pila usuario y pila kernel). En el caso de linux, esta pila se almacena en ``thread_info``. De esta forma evitamos que el usuario acceda a los datos de la pila generados por el kernel.
  Una de las funciones es saber en qué CPU se está ejecutando el proceso.
  
