@@ -663,15 +663,15 @@ Un *subsistema* (también llamado *controlador de recursos* o simplemente contro
 
 ### Subsistemas disponibles:
 
-**blkio**: este subsistema establece límites en el acceso de entrada y salida hacia y desde dispositivos de bloques, como unidades físicas (disco, USB).  
-**CPU**: este subsistema usa el planificador para proporcionar el acceso de las tareas de un cgroup a la CPU.   
-**cpuset**: este subsistema asigna CPUs individuales (en un sistema multinúcleo) y nodos de memoria a tareas en un cgroup.  
-**cpuacct**: este subsistema genera informes automáticos sobre los recursos de la CPU utilizados por las tareas en un cgroup.   
-**Freezer**: suspende o reanuda las tareas en un cgroup.  
-**Dispositivos (devices)**:  permite o niega el acceso a los dispositivos a las tareas en un cgroup.  
-**Memoria (memory)**: este subsistema establece límites en el uso de memoria por las tareas de un cgroup y genera informes automáticos sobre los recursos de memoria utilizados por esas tareas.  
-**net_cls**: etiqueta paquetes de red con un identificador de clase (classid) que permite al controlador de tráfico (tc) identificar los paquetes originados en una tarea de un grupo.  
-**ns**: el subsistema del espacio de nombres.
+* **blkio**: este subsistema establece límites en el acceso de entrada y salida hacia y desde dispositivos de bloques, como unidades físicas (disco, USB).  
+* **CPU**: este subsistema usa el planificador para proporcionar el acceso de las tareas de un cgroup a la CPU.   
+* **cpuset**: este subsistema asigna CPUs individuales (en un sistema multinúcleo) y nodos de memoria a tareas en un cgroup.  
+* **cpuacct**: este subsistema genera informes automáticos sobre los recursos de la CPU utilizados por las tareas en un cgroup.   
+* **Freezer**: suspende o reanuda las tareas en un cgroup.  
+* **Dispositivos (devices)**:  permite o niega el acceso a los dispositivos a las tareas en un cgroup.  
+* **Memoria (memory)**: este subsistema establece límites en el uso de memoria por las tareas de un cgroup y genera informes automáticos sobre los recursos de memoria utilizados por esas tareas.  
+* **net_cls**: etiqueta paquetes de red con un identificador de clase (classid) que permite al controlador de tráfico (tc) identificar los paquetes originados en una tarea de un grupo.  
+* **ns**: el subsistema del espacio de nombres.
 
 El subsistema "ns" se agregó en el desarrollo de cgroups para integrar espacios de nombres y grupos de control. Si el cgroup "ns" estaba montado, cada espacio de nombres también crearía un nuevo grupo en la jerarquía de cgroup. Este fue un experimento que luego se consideró que no era adecuado para la API de cgroups y se eliminó del kernel.
 
