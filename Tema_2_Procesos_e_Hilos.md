@@ -68,8 +68,9 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 		Si es así, el proceso en ejecución pasa a estado inicializado y se hace un cambio de contexto. 
 
 ## 1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
------------
+
 ### BLOQUE DE CONTROL DE PROCESO
+
 En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
 
 ![](apuntes2DGIIM/Process+Control+Block-+task_struct.jpg)
@@ -77,6 +78,7 @@ En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la 
 
 
 Es una estructura de datos que: 
+
  + Presenta subestructuras.
  
  + Define el estado del proceso.
@@ -160,6 +162,7 @@ Para gestionar procesos de forma conjunta, todos los procesos forman parte de un
 Todo proceso tiene exactamente un padre.
 Procesos hermanos (``siblings``) = procesos con el mismo padre.
 La relación entre procesos se almacena en el PCB:
+
 + ``parent``: puntero al padre
 + ``children``: lista de hijos.
 …
@@ -248,6 +251,7 @@ Algunos sistemas operativos, en su rango de valores para prioridades de procesos
 ### Estructura que define una entidad y sus relaciones
 
 Equilibrio de carga.
+
 + Nodo en árbol rojo-negro.
 + Bool si la entidad está en una cola de ejecución
 + Tiempo de inicio de la ejecución
@@ -290,10 +294,12 @@ La política de planificación es:
 ### Tipos de planificadores
 
 **Planificador periódico**
+
 + Se invoca con frecuencia en HZ. También se puede ver como que su periodo es un número fijo de ciclos dee reloj.
 + Dos funciones principales: Manejar estadísticas relativas a planificación. Activar el planificador periódico de la clase de planificación del proceso actual, así le cede la toma de decisiones al planificador de la clase.
 
 **Planificador principal:**
+
 + La función schedule() se implementa en varios sitios de código del kernel para cambiar de proceso.
 + Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar. De eso también se encarga schedule().
 
