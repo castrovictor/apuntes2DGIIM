@@ -320,9 +320,9 @@ Una forma de reducir el "castigo" de los procesos cortos en FIFO es usando este 
 
 Los intervalos de tiempos que se usan se llaman *quantum*, es necesario comentar que si el quantum es muy pequeño se puede producir una sobrecarga de procesamiento, ya que a los procesos no les da tiempo a hacer nada en ese tiempo y siempre necesitarán mas de un quantum. Si en cambio el queantum es muy grande se degenera a un FIFO. Lo ideal es que sea ligeramente mayor al tiempo requerido por una interrupción.
 
-Una desventaja es que los procesos que necesitan E/S se bloquean antes de tiempo y tienen que pasar a bloqueados, mientras que los que tienen limitado el procesador usan siempre todo el quantum, por lo que hay una desigualdad en la distribución de tiempo.
+Una desventaja es que los procesos que necesitan E/S se bloquean antes de tiempo y tienen que pasar a bloqueados, mientras que los que tienen limitado el procesador usan siempre todo el quantum, por lo que hay una desigualdad en la distribución de tiempo.  
 
-Implementación del algoritmo de planificación Round-Robin:
+Implementación del algoritmo de planificación Round-Robin:  
 
 ~~~
 RSIreloj(){
@@ -332,7 +332,7 @@ if(q==0)
 	TIF_NEED_RESCHED=1;
 ...
 }
-~~~
+~~~  
 * **SPN - shortest process next**
 
 Es una política no apropiativa que elige en proceso con el tiempo de procesamiento más corto.
