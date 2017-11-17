@@ -117,6 +117,7 @@ Es una estructura de datos que:
  + ``current_thread_info``: dirección de thread_info del proceso actual.
  + ``current``: dirección del descriptor del proceso actual.
  
+
 ## ESTADO DE LOS PROCESOS
 
 El campo ``state`` del Descriptor de proceso  almacena el estado de un proceso en Linux. un proceso puede encontrarse en los siguientes estados:
@@ -130,11 +131,41 @@ El campo ``exit_state`` almacena los estados de los procesos que han finalizado:
 + ``EXIT_DEAD``: va a ser eliminado, su padre ha invocado wait().
 + ``EXIT_ZOMBIE``: el padre aún no ha realizado wait().
 
-!(imagen)[https://ibb.co/gH19nm]
+!(transicion)[https://image.ibb.co/meNtDR/Captura_estado_procesos.png]
 
 Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la máquina una de las labores es crear el primer proceso a partir del cual se crearán el resto.
 
 Para ejecutar un proceso necesito dos llamadas -> fork+exec.
+
+NOTA: Cuando uso exec lo que hago es: Código, Datos, Pila, SO
+Cuando uso `fork` copio el stack de arriba de manera idéntica y tengo 2 procesos ejecutando igual. Cuando el segundo hace un `exec()`  el ejecutable lo que hace es destruir la memoria
+nueva, se va al ejecutable y este le dice cuáles son sus características y el SO lo que hace es construir un nuevo espacio a partir del anterior (no el primero).
+
+
+### Transiciones entre estados
++ ``clone()``: llamada al sistema para crear un proceso/hilo.
++ ``exit()``: llamada para finalizar un proceso.
++ ``sleep()``: bloquea/duerme a un proceso en espera de un determinado evento.
++ ``wakeup()``: desbloquea/despierta a un proceso cuando se ha producido el evento por el que espera.
++ ``schedule()``: planificador – decide que proceso tiene el control de la CPU
+
+
+### Colas de estado
+Existe una lista de procesos doblemente enlazada con todos los procesos del sistema y a la cabeza está el swapper (PID=0, ``task_struct_init_task``).
+
+Los estados ``TASK_STOPPED``, ``EXIT_ZOMBIE``, ó ``EXIT_DEAD`` no están agrupados en colas.
+
+Los procesos ``TASK_RUNNING`` están en diferentes colas de procesos ejecutables: una cola por procesador.
+
+
+### Jerarquías de procesos
+Para gestionar procesos de forma conjunta, todos los procesos forman parte de una jerarquía, con el proceso: systemd / init (PID=1) a la cabeza.
+Todo proceso tiene exactamente un padre.
+Procesos hermanos (``siblings``) = procesos con el mismo padre.
+La relación entre procesos se almacena en el PCB:
++ ``parent``: puntero al padre
++ ``children``: lista de hijos.
+…
 
 
 
