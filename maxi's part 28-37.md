@@ -50,7 +50,7 @@ El planificador asigna los procesos a ser ejecutados por el procesador/es a lo l
 
 Ilustrativamente:
 
-!(imagen)[apuntes2DGIIM/imagenes/tipos_planificadores.JPG]
+![](apuntes2DGIIM/imagenes/tipos_planificadores.JPG)
 
 Podemos distinguir dos tipos de planificación según la política de expulsión:
 
