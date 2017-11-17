@@ -1,7 +1,7 @@
 
-# TEMA 2: PROCESOS E HILOS. #
-## REPASO ##
-##### PROCESO: #####
+# TEMA 2: PROCESOS E HILOS.
+## REPASO
+##### PROCESO:
 1. Programa en ejecución.
 2. Instancia de un programa ejecutado en un computador.
 3. La entidad que se puede asignar y ejecutar en un procesador.
