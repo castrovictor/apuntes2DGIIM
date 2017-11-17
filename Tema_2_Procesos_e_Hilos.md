@@ -240,7 +240,7 @@ Comparten todas (mm_struct, files_struct, fs_struct, signal_struct, tty_struct) 
 	**PROCESOS TIEMPO-REAL >> PROCESOS CFS >> PROCESOS IDLE**
 + Esta jerarquía se produce en compilación, no se puede cambiar de forma dinámica (en ejecución).
 
-Recordar que cada proceso se encuentra en una única cola, su rq(runnning, queue o run queue), dependiendo de la clase de planificación asignada a ese proceso. Además, cada procesador tiene su propia cola para mayor eficiencia. De la lista general, se pasa a una cola con prioridad para cada procesador. Más abajo aparece un dibujo explicativo (2).
+Recordar que cada proceso se encuentra en una única cola, su rq(runnning queue o run queue), dependiendo de la clase de planificación asignada a ese proceso. Además, cada procesador tiene su propia cola para mayor eficiencia. De la lista general, se pasa a una cola con prioridad para cada procesador. Más abajo aparece un dibujo explicativo (2).
 
 Algunos sistemas operativos, en su rango de valores para prioridades de procesos, éste se parte en tres para cada clase de planificación. Si el rango es de 0-120, pues, por ejemplo 0-40 sería para tiempo-real, 40-80 para CFS... etc.
 
