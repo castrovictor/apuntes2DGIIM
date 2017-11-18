@@ -384,7 +384,7 @@ Los kernel actuales son apropiativos, y se pueden ajustar para que lo sean más,
 
 Los *puntos de apropiación* son puntos del flujo de ejecución del kernel donde es posible apropiar al proceso actual sin incurrir en una condicion de carrera. (Una condición de carrera se produce cuando dos procesos van a utilizar el mismo recurso, de cierta manera 'compiten por el'. Un ejemplo a alto de nivel podría ser cuando dos personas reservan el mismo asiento de un avión al mismo tiempo).
 
-La invocación asíncrona del planificador podría generar condiciones de carrera, por lo que solo se llama al planificador cuando se llega a un punto de apropiación.  
+La invocación asíncrona del planificador podría generar condiciones de carrera. Para evitar esto, no se llama al planificador hasta que se llega a un punto de apropiación.  
 
 
 *Insertar parte de Carmen*
