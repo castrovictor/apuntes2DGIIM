@@ -447,8 +447,11 @@ Como ya hemos mencionado antes, los sistemas operativos utilizan un intervalo de
 Por ejemplo, sin ser root sólo se puede cambiar la prioridad de un proceso a un número positivo, y se reservan los negativos a puntos críticos del sistema o más sensibles a fallos por una mala planificación.
 
 La política de planificación es:
+
 + Se seleccionan en orden creciente de prioridad.
+
 + A igualdad de prioridad, el que lleve más tiempo esperando.
+
 + Los procesos de clase FIFO se ejecutan hasta el final o hasta que se bloquee.
 
 ### Tipos de planificadores
