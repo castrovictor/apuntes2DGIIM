@@ -383,16 +383,97 @@ Planificador(){
 
 Podemos hacerlo así ya que siempre hay un proceso nulo seleccionable. De lo contrario, tendríamos que comprobar si hay procesos en la cola de preparados con un if: `if(cola_preprados==vacia) halt; else Selecciona (Pj)`, por lo que, teniendo en cuenta que llamamos a planificar muchas veces, disminuiriía notablemente la eficacia del código.
 
-### Linux y la apropiatividad
+## Linux y la apropiatividad 
 
-Los kernel actuales son apropiativos, y se pueden ajustar para que lo sean más, o menos, según el uso que le demos. 
+Una vez estudiados los tipos de planificación vamos a ver en el caso concreto de Linux.
+Los kernels actuales son apropiativos (soportan sistemas de tiempo real) y permiten ajustar el grano de apropiatividad(grado de apropiación) según el uso que le vayamos a dar.
+En Linux puedo configurar este grano en 4 niveles.
 
-Los *puntos de apropiación* son puntos del flujo de ejecución del kernel donde es posible apropiar al proceso actual sin incurrir en una condicion de carrera. (Una condición de carrera se produce cuando dos procesos van a utilizar el mismo recurso, de cierta manera 'compiten por el'. Un ejemplo a alto de nivel podría ser cuando dos personas reservan el mismo asiento de un avión al mismo tiempo).
+Para implementarlos se utilizan los puntos de apropiación:sección del código en la que es posible apropiar el proceso actual para ceder la CPU a otra función del sistema o proceso sin incurrir en una condición de carrera(que es básicamente que dos procesos estén toqueteando a la vez la misma sección).
 
-La invocación asíncrona del planificador podría generar condiciones de carrera. Para evitar esto, no se llama al planificador hasta que se llega a un punto de apropiación.  
+Asi que como la invocación asíncrona del planificador(es independiente la planificación con el SO) podría generar condiciones de carrera. Por ejemplo en una sección crítica intenten manejarlas dos hebras a la vez. Pues la planificación se pospone hasta llegar a un punto de apropiación.
+
+Para ello las RSIs en lugar de invocar a schedule() directamente solo indican cuando es necesario  planificar.Cuando se produce la interrupción TIF_NEED_RESCHED(Bandera que indica que hay que planificar que se almacena en thread_info) se pone a uno.Cuando se llega al punto de apropiación,(zona donde las EDs estén en estado seguro) se comprueba si es necesario planificar o no mirando el valor de la bandera.Si es necesario se invoca al planificador sin problema.
+
+Los puntos de apropiación conllevan cambios de contexto(los cuales son muy costosos)
+
+Por tanto en Linux se hace una una planificación tanto síncrona y como asíncrona.
+
+## TRABAJO EN GRUPO 
+Si la planificación no es apropiativa ¿Puede el procesador y el kernel manejar interrupciones?
+Para evitar las condiciones de carrera se utilizaría el mecanismo de protección:Kernel no apropiativo , por tanto no se debe planificar.
+Peeeero debemos tratarlas ya que si no afectaría a la responsividad del SO frente a los dispositivos.
+Por tanto la apropiatividad afecta solo a los procesos y no a las interrupciones, asi se pueden manejar siempre que la RSI deje la máquina en el estado encontrado al inicio (Como solución se introduce una hebra de interrupción que tiene asociada una prioridad)
 
 
-*Insertar parte de Carmen*
+## Planificación de tiempo real 
+
+Un RTOS debe planificar las tareas para que todas puedan cumplir sus plazos(deadlines).
+Esto afecta:
+
+1. Planificador de tiempo-real:debe tener en cuenta los plazos .
+2. Debemos reducir la latencia de despacho:
+   -El kernel debe ser apropiativo 
+   -NO planificación oculta
+   
+### Latencia de despacho
+
+Tiempo que tardo en el ejecutar el evento necesario para atender al evento que está ocurriendo
+
+Se divide en 2 tiempo:
+
+1. **Conflicto**. Provocado por que tengo que darle la CPU al siguiente proceso y quitárselo al actual, liberando los recursos usados por el actual que necesite el siguiente.
+Si no tengo una cota de este tiempo puede dar como resultado una inversión de prioridad.Así un proceso de tiempo real esperando a un proceso sin casi prioridad.Para evitar que esto ocurra se utiliza la herencia de prioridad.
+
+2.**Despacho**.Tiempo en que se tarda en salvar los registros.
+
+## Planificación en Linux
+
+Se usa la funcion **schedule()**.
+El planificador genérico tiene dos componentes:
+
+-Componentesíncrono:se activa cuando un proceso va a ceder la CPU.
+
+-Componente asíncrono:Se activa periódicamente.
+
+Linux debe soportar 3 tipos de planificaciones:
+
+-2 de tiempo real:SCHED_FIFO y SCHED_RR
+–1 de tiempo compartido: SCHED_OTHERS( En linux SHEC_NORMAL) que contiene a SCHED_BATCH Y SCHED_IDLE
+
+El planificador soporta NUMA, UMA, hiperhilos y multicores.
+
+#### Planificación y task struct
+
+Algunos elementos del task_struct relacionados con
+planificación:
+
+– prio: prioridad usada por el planificador
+
+– rt_priority: prioridad de tiempo-real.
+
+– sched_class: clase de planificación del proceso.
+
+– sched_entity: el mecanismo grupos de control establece que se
+planifiquen entidades (procesos o grupos de procesos). La
+introducción de grupos de control permite asegurar cierto
+porcentaje de CPU al grupo completo.
+ 
+-policy: almacena la política de planificación aplicada al
+proceso:
+
+1. SCHED_NORMAL: manejados por CFS al igual que:
+• SCHED_BATCH: procesos batch -no interactivos- acotados por
+computo, son desfavorecidos por las decisiones de planificación.
+Nunca apropian a otro proceso gestionado por CFS y por interfieren
+con trabajos interactivos. Es aconsejable en situaciones en las que
+no se desea decrementar la prioridad estática con nice, pero la
+tarea no debería influenciar la interactividad del sistema.
+• SCHED_IDLE: tareas de poca importancia con peso relativo mínimo.
+No es responsable de planificar la tarea ociosa.
+
+2.  SCHED_RR y SCHED_FIFO: implementan procesos de tiempo-real
+blandos (soft). Gestionados por la clase de tiempo-real.
 
 
 ### Clases de Planificación:
