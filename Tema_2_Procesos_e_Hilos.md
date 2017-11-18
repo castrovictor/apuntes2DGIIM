@@ -285,7 +285,7 @@ El planificador asigna los procesos a ser ejecutados por el procesador/es a lo l
 ### Tipos de planificador:
 * **Planificador a largo plazo:** Es el que toma la decisión de añadir un nuevo proceso al conjuntos de procesos a ser ejecutados. Es decir, toma un programa o trabajo y lo convierte en un proceso que lo añade a la cola de procesos de "listo" del planificador a corto plazo. En algunos sistemas, en vez de pasar directamente a la cola de "listo", pasa primero a la zona de intercambio, es decir, se añaden a la cola del planificador a medio plazo.
 
-* **Planificador a medio plazo:** Es parte de la función de intercambio. Toma la decisión de añadir  un proceso al número de procesos que están parcialmente o totalmente en la memoria principal. (La verdad es que de este no me he entardo muy bien, pero con la ilustración, se pilla la idea aprox.)No es un planificador de CPU, sino más bien de memoria, pero si un proceso no está en memoria principal lo hago innaccesible para la CPU.
+* **Planificador a medio plazo:** Es parte de la función de intercambio. Toma la decisión de añadir  un proceso al número de procesos que están parcialmente o totalmente en la memoria principal. No es un planificador de CPU, sino más bien de memoria, pero si un proceso no está en memoria principal lo hago innaccesible para la CPU.
 
 * **Planificador a corto plazo:** Es el 'scheduler' y es el que se ejecuta con más frecuencia. Dedice qué proceso de entre la cola de procesos 'listos' ejecutar el siguiente. Este planificador se invoca siempre que ocurre un evento que conlleva el bloqueo del actual, y da la oportunidad ejecutar otro. El criterio con el que se elige el siguiente proceso, dependerá del algoritmo de planificación que se utilice.
 
