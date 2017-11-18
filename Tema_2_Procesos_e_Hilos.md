@@ -378,6 +378,15 @@ Planificador(){
 
 Podemos hacerlo así ya que siempre hay un proceso nulo que podemos seleccionar, si no lo hubiera tendríamos que añadir un `if(cola_preprados==vacia) halt; else Selecciona (Pj)`, por lo que teniendo en cuenta que llamamos a planificar muchas veces, quitar un if genera más eficacia.
 
+### Linux y la apropiatividad
+
+Los kernel actuales son apropiativos, y se pueden ajustar para que lo sean más, o menos, según el uso que le demos. 
+
+Los *puntos de apropiación* son puntos del flujo de ejecución del kernel donde es posible apropiar al proceso actual sin incurrir en una condicion de carrera. (Una condición de carrera se produce cuando dos procesos van a utilizar el mismo recurso, de cierta manera 'compiten por el'. Un ejemplo a alto de nivel podría ser cuando dos personas reservan el mismo asiento de un avión al mismo tiempo).
+
+La invocación asíncrona del planificador podría generar condiciones de carrera, por lo que solo se llama al planificador cuando se llega a un punto de apropiación.  
+
+
 *Insertar parte de Carmen*
 
 
