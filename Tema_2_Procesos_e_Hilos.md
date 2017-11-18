@@ -538,9 +538,9 @@ CFS (*Completely Fair Scheduler*) intenta modelar un procesador multitarea perfe
 
 El CFS no asigna rodajas de tiempo, sino que asigna una proporción del procesador dependiente de la carga del sistema.
 El tiempo del que dispone un proceso para usar la CPU es:  
+
+Tiempo de CPU del proceso i = $[ Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\] ]$ * P  
 `
-Tiempo de CPU del proceso i = [ Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\] ] * P  
-`  
 Siendo P la latencia de planificación, que es el tiempo mínimo que se le va a asignar a un proceso, si el nº de procesos es mayor a `nr_latency`, en otro caso, P es `min_granularidad*n`, siendo n el nº de procesos y `min_granularidad` el mínimo tiempo asignado a cada proceso, ya que si n tiende a infinito, el tiempo asignado a cada proceso tiende a cero, por lo que es necesario definir dicha variable.
 
 En la implementación actual, `sched_latency`=8 (latencia de planificación), `nr_latency`=8, y `min_granularity`= 1 us.
