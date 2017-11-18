@@ -544,7 +544,7 @@ La política de planificación es:
 
 **Planificador principal:**
 
-+ La función schedule() se invoca en varios sitios de código del kernel para cambiar de proceso.
++ La función schedule() se invoca directamenete en diversos puntos del kérnel para ccambiar de proceso.
 + Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar. mediante *TIF_NEED_RESCHED*, y si es necesario se invoca a schedule().
 
 ### Planificador: Algoritmo
