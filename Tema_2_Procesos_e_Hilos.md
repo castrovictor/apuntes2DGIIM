@@ -591,7 +591,8 @@ Cada nivel de prioridad con la orden nice equivale a un 10% de apropiación de l
 El kernel convierte prioridades a peso de carga con la función `prio_to_weight()`. Los cálculos se realizan con la función `set_load_weight()` . 
 
 El % de CPU que obtiene un proceso se calcula:  
-`% de CPU del proceso i = Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\]`
+
+$$ \text{\% de CPU del proceso i} = \frac{ \text{Peso del proceso i} }{\sum_{j=1}^n \text{Peso del proceso j} } $$
 
 ### Ejemplo de uso:
 
@@ -627,7 +628,7 @@ CFS (*Completely Fair Scheduler*) intenta modelar un procesador multitarea perfe
 El CFS no asigna rodajas de tiempo, sino que asigna una proporción del procesador dependiente de la carga del sistema.
 El tiempo del que dispone un proceso para usar la CPU es:  
 
-Tiempo de CPU del proceso i = $[ Peso del proceso i  / \[\sum_{j=1}^nPeso del proceso j\] ]$ * P  
+Tiempo de CPU del proceso $$ i = \frac{ \text{Peso del proceso i} }{\sum_{j=1}^n \text{Peso del proceso j}} * P$$  
 `
 Siendo P la latencia de planificación, que es el tiempo mínimo que se le va a asignar a un proceso, si el nº de procesos es mayor a `nr_latency`, en otro caso, P es `min_granularidad*n`, siendo n el nº de procesos y `min_granularidad` el mínimo tiempo asignado a cada proceso, ya que si n tiende a infinito, el tiempo asignado a cada proceso tiende a cero, por lo que es necesario definir dicha variable.
 
