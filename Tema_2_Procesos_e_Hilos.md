@@ -432,9 +432,9 @@ Si no tengo una cota de este tiempo puede dar como resultado una inversión de p
 Se usa la funcion **schedule()**.
 El planificador genérico tiene dos componentes:
 
--Componentesíncrono:se activa cuando un proceso va a ceder la CPU.
+-Componente síncrono: se activa cuando un proceso va a ceder la CPU.
 
--Componente asíncrono:Se activa periódicamente.
+-Componente asíncrono: se activa periódicamente.
 
 Linux debe soportar 3 tipos de planificaciones:
 
