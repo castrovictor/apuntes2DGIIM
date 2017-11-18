@@ -544,8 +544,8 @@ La política de planificación es:
 
 **Planificador principal:**
 
-+ La función schedule() se invoca directamenete en diversos puntos del kérnel para ccambiar de proceso.
-+ Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar. mediante *TIF_NEED_RESCHED*, y si es necesario se invoca a schedule().
++ La función schedule() se invoca directamente en diversos puntos del kérnel para cambiar de proceso.
++ Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar mediante *TIF_NEED_RESCHED*, y si es necesario se invoca a schedule().
 
 ### Planificador: Algoritmo
 
@@ -581,6 +581,8 @@ if(likely(prev != next)
 if (need_resched())
 	goto need_resched;
 ~~~
+
+El cambio de contexto descansaen dos funciones, *switch_mm()* que cmabia el contexto de memoria de usuario descrito por la *task_struct->mm* y *switch_to(prev,next,prev)* que cambia los contenidos de los registros del procesador y la pila kernel.
 
 ## PLANIFICADOR CFS
 
