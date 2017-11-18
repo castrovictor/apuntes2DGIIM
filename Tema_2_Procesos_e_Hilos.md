@@ -585,8 +585,11 @@ Información planificación proceso PID:
 
 ## Planificador de tiempo-real
 Los procesos de tiempo-real ejecutables que existan en el sistema se ejecutarán antes que el resto, salvo que exista uno con mayor prioridad. Los algoritmos de planificación de tiempo real dependen de:
+
 1. Cuándo el sistema realiza análisis de planificabilidad.
-2. De hacerlo, si se realiza estática o dinámicamente
+
+2. De hacerlo, si se realiza estática o dinámicamente.
+
 3. El resultado del análisis produce un plan de planificación acorde al cual se desarrollarán las tareas en tiempo de ejecución.
 
 ![](imagenes/imgdiapo73.png){#id .class width=300 height=400px}
@@ -596,8 +599,11 @@ El *mapa de bits* permite seleccionar la cola con procesos en 2 (64 bits) o 4 (3
 
 ## Planificado en sistemas multipocesadores
 En los sistemas multipocesador más tradicionales, los procesos no se vinculan a los procesadores. Hay una única cola para todos los procesadores o, si se utiliza algún tipo de esquema basado en prioridades, hay múltiples colas basadas en prioridad, alimentando a un único colectivo de procesadores. Puede verse como una arquitectura de colas multiservidor. A la hora de planificar, hay que considerar algunos aspectos:
+
 1. Compartición de la carga de CPU imparcial
+
 2. Afinidad de una tarea por un procesador
+
 3. Migración de tareas sin sobrecarga.
 
 En resumen, se realiza igual que en monoprocesadores, pero se tiene en cuenta el número de CPUs, la asignación y la liberación de proceso y procesador.
