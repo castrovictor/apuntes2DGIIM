@@ -610,23 +610,29 @@ En resumen, se realiza igual que en monoprocesadores, pero se tiene en cuenta el
 
 ## Gestión de la energía
 En los diseños actuales es importante considerar la gestión de la potencia, con el objetivo de reducir los costes de consumo de energía y los costes de refrigeración. Esta gestión se realiza a dos niveles:
+
 * Nivel de CPU: P-states, C-states y T-states.
+
 * Nivel de SO: CPUfreq (paquetes cpufrequtils y cpupower) y planificación.
 
 Los procesadores actuales pueden funcionar a diferentes voltajes. A mayor voltaje, más alta es la frecuencia de funcionamiento y por tanto, mayor rendimiento. Cuando hay carga máxima del sistema, el procesador aumenta el voltaje para incrementar la frecuencia y por el contrario, cuando está ocioso (poca carga de trabajo), la disminuye para ahorrar energía.
 
 ### Especificación ACPI
 Todos los procesadores actuales cumplen la especificación ***Advanced Configuration and Power Interface***, que se define como la especificación abierta para la gestión de potencia y gestión térmica, controladas por el SO. Se definen cuatro estados Globales (*G-Estados*):
+
 * G0: estado de funcionamiento (estados-C y estados-P)
-* G1: estado dormido (S-estados)
+
+* G1: estado dormido (S-estados
+
 * G2: estado apagado soft
+
 * G3: estado apagado mecánico
 
 ### Estados de la CPU.
-* S-estados: (dormidos en G1). Van de S1 a S5. Son estados en los que se van apagando diferentes componentes del ordenador, empezando por los que más consumen.
-* C-estados: son los estados de potencia en G0.C0 (activo), C1(halt), C2(stop), C3(deep sleep)... 
+* **S-estados:** (dormidos en G1). Van de S1 a S5. Son estados en los que se van apagando diferentes componentes del ordenador, empezando por los que más consumen.
+* **C-estados:** son los estados de potencia en G0.C0 (activo), C1(halt), C2(stop), C3(deep sleep)... 
 * P-estados: el voltaje del procesador se modifica a escalones, no de forma continua. Por, ejemplo, pasar de 5V a 3V. Éstos dependen del procesador.
-* T-estados: son los conocidos como *estados throttles*. Estań relacionados con la gestión técnica, como estabilizar la temperatura, pero no se dedican a la gestión de energía. Introducen ciclos ociosos.
+* **T-estados:** son los conocidos como *estados throttles*. Estań relacionados con la gestión técnica, como estabilizar la temperatura, pero no se dedican a la gestión de energía. Introducen ciclos ociosos.
 
 ### Estructura CPUfreq
 * El **subsitema CPUfreq** es el responsable de ajustar explícitamente la frecuencia del procesador.
