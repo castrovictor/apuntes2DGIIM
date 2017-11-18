@@ -365,7 +365,7 @@ Nota: tambien puede ser llamado como retroalimentación multinivel.
 
 ### Proceso nulo
 
-Este proceso se crea para siempre haya un proceso que el planificador a corto plazo que pueda encontrar un proceso en preparados para ejecutar. Por tanto, este proceso siempre está listo para ejecutarse y tiene la prioridad más baja.
+Este proceso se crea para que el planificador a corto plazo siempre pueda encontrar un proceso en preparados para ejecutar. Por tanto, este proceso siempre está listo para ejecutarse y tiene la prioridad más baja.
 
 **Implementación** 
 
