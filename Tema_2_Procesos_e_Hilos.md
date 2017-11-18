@@ -540,12 +540,12 @@ La política de planificación es:
 **Planificador periódico**
 
 + Se invoca con una frecuencia de HZ, en *update_process_times()*, para contabilizar el tick transcurrido al proceso actual. También se puede ver como que su periodo es un número fijo de ciclos de reloj.
-+ Dos funciones principales: Manejar estadísticas relativas a planificación. Activar el planificador periódico de la clase de planificación del proceso actual, así le cede la toma de decisiones al planificador de la clase.
++ Dos funciones principales: Manejar estadísticas kérnel relativas a planificación. Activar el planificador periódico de la clase de planificación del proceso actual, así le cede la toma de decisiones al planificador de la clase.
 
 **Planificador principal:**
 
-+ La función schedule() se implementa en varios sitios de código del kernel para cambiar de proceso.
-+ Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar. De eso también se encarga schedule().
++ La función schedule() se invoca en varios sitios de código del kernel para cambiar de proceso.
++ Cuando volvemos de una llamada al sistema, comprobamos si hay que replanificar. mediante *TIF_NEED_RESCHED*, y si es necesario se invoca a schedule().
 
 ### Planificador: Algoritmo
 
