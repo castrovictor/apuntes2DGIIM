@@ -232,8 +232,8 @@ Si preguntamos a la hebra por su identificador nos dará el identificador del gr
  
 **Actividad Propuesta: 
 Sabiendo esto:
-CLONE_VM|CLONE_FILES|CLONE_FS|CLONE_THREAD|
-CLONE_SIGHAND
+CLONE_VM|CLONE_FILES|CLONE_FS|
+CLONE_THREAD|CLONE_SIGHAND
 ¿Qué estructuras comparten el padre y el hijo?**
 
 Comparten todas (mm_struct, files_struct, fs_struct, signal_struct, tty_struct) menos el thread_info. Recordemos que cuando se usa clone(), el proceso hijo pasa a estado no-interrumpible, mientras que el padre se está ejecutando, por lo tanto, sus thread_info, son distintos.
