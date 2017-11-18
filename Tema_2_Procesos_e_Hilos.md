@@ -343,7 +343,7 @@ Es una política no apropiativa que elige en proceso con el tiempo de procesamie
 
 Un problema es la necesidad de estimar el tiempo de ejecución de cada proceso. (En Stalling hay muchas formulitas de como lo hace, pero no me suena de que se haya ni siqueira nombrado este algoritmo en clase por lo que lo veo innesario)
 
-Otro problema es la iniciación que pueden sufrir lo procesos más largos.
+Otro problema es la inanición que pueden sufrir lo procesos más largos.
 
 * **SRT - shortes remaining time**
 
