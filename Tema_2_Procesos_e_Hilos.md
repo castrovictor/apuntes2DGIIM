@@ -100,7 +100,9 @@ Es una estructura de datos que:
  
 
  Las subestructuras ``mm_struct`` , ``files_struct``, ``tty_struct``, y ``signal_struct`` se desgajan de la estructura principal por dos motivos:
+ 
  1. No se asignan cuando no es necesario (Por ejemplo un demonio no tiene asignada una terminal.)
+ 
  2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
  
 ### ESTRUCTURA thread_info
