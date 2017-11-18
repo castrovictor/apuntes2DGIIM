@@ -364,6 +364,7 @@ Nota: tambien puede ser llamado como retroalimentación multinivel.
 Este proceso se crea para siempre haya un proceso que el planificador a corto plazo que pueda encontrar un proceso en preparados para ejecutar. Por tanto, este proceso siempre está listo para ejecutarse y tiene la prioridad más baja.
 
 **Implementación** 
+
 Gracias al proceso nulo, la implementación del planificador a óptima, y quedaría así:
 
 ``` cpp
@@ -376,7 +377,7 @@ Planificador(){
 
 ```
 
-Podemos hacerlo así ya que siempre hay un proceso nulo que podemos seleccionar, si no lo hubiera tendríamos que añadir un `if(cola_preprados==vacia) halt; else Selecciona (Pj)`, por lo que teniendo en cuenta que llamamos a planificar muchas veces, quitar un if genera más eficacia.
+Podemos hacerlo así ya que siempre hay un proceso nulo seleccionable. De lo contrario, tendríamos que comprobar si hay procesos en la cola de preparados con un if: `if(cola_preprados==vacia) halt; else Selecciona (Pj)`, por lo que, teniendo en cuenta que llamamos a planificar muchas veces, disminuiriía notablemente la eficacia del código.
 
 ### Linux y la apropiatividad
 
