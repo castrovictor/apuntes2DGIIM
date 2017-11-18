@@ -539,7 +539,7 @@ La política de planificación es:
 
 **Planificador periódico**
 
-+ Se invoca con frecuencia en HZ. También se puede ver como que su periodo es un número fijo de ciclos dee reloj.
++ Se invoca con una frecuencia de HZ, en *update_process_times()*, para contabilizar el tick transcurrido al proceso actual. También se puede ver como que su periodo es un número fijo de ciclos de reloj.
 + Dos funciones principales: Manejar estadísticas relativas a planificación. Activar el planificador periódico de la clase de planificación del proceso actual, así le cede la toma de decisiones al planificador de la clase.
 
 **Planificador principal:**
