@@ -573,7 +573,7 @@ next=pick_next_task(rq, next);
 4. Invocar el cambio de contexto.
 
 ~~~
-if(likely(prev != next)
+if(likely(prev != next))
 	context_switch(rq, prev, next);
 ~~~
 
