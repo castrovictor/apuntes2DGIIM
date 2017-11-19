@@ -369,7 +369,7 @@ Este proceso se crea para que el planificador a corto plazo siempre pueda encont
 
 **Implementación** 
 
-Gracias al proceso nulo, la implementación del planificador a óptima, y quedaría así:
+Gracias al proceso nulo, la implementación del planificador es óptima, y quedaría así:
 
 ``` cpp
 Planificador(){
@@ -425,7 +425,7 @@ Se divide en 2 tiempo:
 1. **Conflicto**. Provocado por que tengo que darle la CPU al siguiente proceso y quitárselo al actual, liberando los recursos usados por el actual que necesite el siguiente.
 Si no tengo una cota de este tiempo puede dar como resultado una inversión de prioridad.Así un proceso de tiempo real esperando a un proceso sin casi prioridad.Para evitar que esto ocurra se utiliza la herencia de prioridad.
 
-2.**Despacho**.Tiempo en que se tarda en salvar los registros.
+2. **Despacho**.Tiempo en que se tarda en salvar los registros.
 
 ## Planificación en Linux
 
@@ -438,8 +438,8 @@ El planificador genérico tiene dos componentes:
 
 Linux debe soportar 3 tipos de planificaciones:
 
--2 de tiempo real:SCHED_FIFO y SCHED_RR
-–1 de tiempo compartido: SCHED_OTHERS( En linux SHEC_NORMAL) que contiene a SCHED_BATCH Y SCHED_IDLE
+-2 de tiempo real: *SCHED_FIFO* y *SCHED_RR*
+–1 de tiempo compartido: *SCHED_OTHERS* ( En linux *SHED_NORMAL*) que contiene a *SCHED_BATCH* Y *SCHED_IDLE*
 
 El planificador soporta NUMA, UMA, hiperhilos y multicores.
 
@@ -448,31 +448,33 @@ El planificador soporta NUMA, UMA, hiperhilos y multicores.
 Algunos elementos del task_struct relacionados con
 planificación:
 
-– prio: prioridad usada por el planificador
+– **prio**: prioridad usada por el planificador
 
-– rt_priority: prioridad de tiempo-real.
+– **rt_priority**: prioridad de tiempo-real.
 
-– sched_class: clase de planificación del proceso.
+– **sched_class**: clase de planificación del proceso.
 
-– sched_entity: el mecanismo grupos de control establece que se
+– **sched_entity**: el mecanismo grupos de control establece que se
 planifiquen entidades (procesos o grupos de procesos). La
 introducción de grupos de control permite asegurar cierto
 porcentaje de CPU al grupo completo.
  
--policy: almacena la política de planificación aplicada al
+-**policy**: almacena la política de planificación aplicada al
 proceso:
 
-1. SCHED_NORMAL: manejados por CFS al igual que:
-• SCHED_BATCH: procesos batch -no interactivos- acotados por
+1. *SCHED_NORMAL*: manejados por CFS al igual que:
+
+• *SCHED_BATCH*: procesos batch -no interactivos- acotados por
 computo, son desfavorecidos por las decisiones de planificación.
-Nunca apropian a otro proceso gestionado por CFS y por interfieren
+Nunca apropian a otro proceso gestionado por CFS y no interfieren
 con trabajos interactivos. Es aconsejable en situaciones en las que
 no se desea decrementar la prioridad estática con nice, pero la
 tarea no debería influenciar la interactividad del sistema.
-• SCHED_IDLE: tareas de poca importancia con peso relativo mínimo.
+
+• *SCHED_IDLE*: tareas de poca importancia con peso relativo mínimo.
 No es responsable de planificar la tarea ociosa.
 
-2.  SCHED_RR y SCHED_FIFO: implementan procesos de tiempo-real
+2.  *SCHED_RR* y *SCHED_FIFO*: implementan procesos de tiempo-real
 blandos (soft). Gestionados por la clase de tiempo-real.
 
 
