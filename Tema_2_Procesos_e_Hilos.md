@@ -596,7 +596,7 @@ El kernel convierte prioridades a peso de carga con la función `prio_to_weight(
 
 El % de CPU que obtiene un proceso se calcula:  
 
-$$ \text{\% de CPU del proceso i} = \frac{ \text{Peso del proceso i} }{\sum\limits_{j=1}^n \text{Peso del proceso j} } $$
+![](./imagenes/tejecucion.png)
 
 ### Ejemplo de uso:
 
