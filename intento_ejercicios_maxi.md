@@ -69,7 +69,7 @@ a) ¿Qué utilidades tiene esta construcción?
 b) ¿Cómo dan soporte a la virtualización?
 c) Indicar al menos tres subsistemas de grupos de control.**
 
-a) 
+a) Asignarle a un grupo de procesos un porcentaje de CPU o de memoria.
 
 b) Limitan los recursos de la maquina virtual.
 
