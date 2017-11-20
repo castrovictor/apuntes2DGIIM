@@ -812,7 +812,7 @@ El problema de estas dos formas de uso es que no son persistentes en el tiempo, 
 ### Para gestionar los grupos de control con el primer método hacemos lo siguiente:
 
 1. Primero monto un subsistema como si fuera un sistema de archivos (el sistema de archivos que vamos a montar es cgroup). Los subsistemas se habilitan como una opción de montaje (-o subsistema que queremos controlar) de cgroupfs:  
-`mount -t cgroup -o$subsistema`
+`mount -t cgroup -o $subsistema`
 2. Habilitamos los archivos del subsistema en cada cgroup (creando un directorio):  
 `/dev/cgroup/migrupo/subsysA.optionB`
 3. Cuando los tenemos definidos podemos verlos en `/proc/cgroups` (aquí están los grupos que se han definido y cómo están configurados)  
