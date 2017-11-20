@@ -734,7 +734,7 @@ Todos los procesadores actuales cumplen la especificación ***Advanced Configura
 ![](imagenes/diapo80.png)
 
 #### Gobernadores
-Permiten gestionar la potenciar en base a unos criterios. Es decir, según el gobernador que estemos utilizando, la gestión se hará de una determinada manera. Son los siguientes:
+Permiten gestionar la frecuencia en base a unos criterios. Es decir, según el gobernador que estemos utilizando, la gestión se hará de una determinada manera. Son los siguientes:
 
 * **Perfomance** - mantiene la CPU a la máxima frecuencia posible
   dentro de un rango especificado por el usuario
