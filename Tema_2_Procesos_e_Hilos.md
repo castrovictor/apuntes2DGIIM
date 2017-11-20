@@ -774,7 +774,7 @@ Permiten gestionar la frecuencia en base a unos criterios. Es decir, según el g
   ajustes son menos agresivos.
 
 ##### Gobernadores a nivel usuario
-	Como comentamos más adelante, el usuario puede elegir entre ahorrar energía o maximicar el rendimiento. Para ello dispone, respectivamente, de los gobernadores *powersave* y *cpuspeed*. Ambos se encuentran en el gobernador del kernel *userspace*.
+Como comentamos más adelante, el usuario puede elegir entre ahorrar energía o maximicar el rendimiento. Para ello dispone, respectivamente, de los gobernadores *powersave* y *cpuspeed*. Ambos se encuentran en el gobernador del kernel *userspace*.
 
 Existen una serie de herramientas para la gestión de energía y potencia del sistema, como cpufreqtils, cpupower, powerTop y TLP.
 
