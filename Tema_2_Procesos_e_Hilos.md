@@ -830,7 +830,7 @@ Asignamos el porcentaje de cpu al grupo escribiendo en el archivo cpu.shares.
 Escribimos el peso 2048, que es el que le vamos a dar al grupo de los reproductores de música, en este fichero:  
 `$ echo 2048 > /sys/fs/cgroup/cpu/multimedia/cpu.shares`  
 A los navegadores le asignamos la mitad del peso anterior:  
-`$ echo 1024 > /sys/fs/cgroup/cpu/multimedia/cpu.shares`  
+`$ echo 1024 > /sys/fs/cgroup/cpu/Navegadores/cpu.shares`  
 Movemos una tarea al cgrupo escribiendo su PID en el archivo tasks.  
 `Firefox&`   
 Miro el Pid del navegador con echo $! y lo escribo en el fichero tasks. Los procesos cuyo pid aparezca en este fichero consumirán la mitad de cpu que los que escribamos en el otro fichero  
