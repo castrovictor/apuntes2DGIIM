@@ -120,7 +120,7 @@ Es una estructura de datos que:
  
  1. No se asignan cuando no es necesario (Por ejemplo un demonio no tiene asignada una terminal.)
  
- 2. Permiten ser compartiadas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
+ 2. Permiten ser compartidas cuando creamos hilos de un proceso. Por ejemplo, dos hilos son hermanos si comparten ``mm_struct`` (mismo espacio de usuarios).
  
 ### ESTRUCTURA thread_info
  
@@ -145,7 +145,7 @@ Es una estructura de datos que:
 El campo ``state`` del Descriptor de proceso  almacena el estado de un proceso en Linux. Un proceso puede encontrarse en los siguientes estados:
 
 + ``TASK_RUNNING``: el proceso es ejecutable o está en ejecución.  
-+ `TASK_INTERRUPTIBLE`: el proceso está bloqueado (dormido) de forma que puede ser interrumpido por una señal. Ejemplo: Espera de entrada de teclado.  
++ `TASK_INTERRUPTIBLE`: el proceso está bloqueado (dormido) de forma que puede ser interrumpido por una señal. Ejemplo: espera de entrada de teclado.  
 + ``TASK_UNINTERRUPTIBLE``: proceso bloqueado no despertable por otra señal. Ejemplo: Espera de lectura de disco que no se produce.  
 + ``TASK_TRACED``: proceso que está siendo "traceado" por otro. Ejemplo: Cuando un proceso está siendo depurado, y su ejecución se para en un punto de ruptura.  
 + ``TASK_STOPPED``: la ejecución del procesose ha detenido por alguna de las señales de control de trabajo.
@@ -168,7 +168,7 @@ Todos los procesos menos uno, han sido creados a partir de otro. Al arrancar la 
 + ``wakeup()``: desbloquea/despierta a un proceso cuando se ha producido el evento por el que espera.
 + ``schedule()``: planificador – decide que proceso tiene el control de la CPU
 
-*En Linux puedes usar clone() para crear un proceso, pero en el resto de Unix no, hay que usar fork(). Cuando Linux usa fork(), llama a clone().*
+*En Linux puedes usar clone() para crear un proceso, pero en el resto de Unix no, hay que usar fork(). Cuando Linux usa clone(), llama a fork().*
 
 ### Colas de estado
 Existe una lista de procesos doblemente enlazada con todos los procesos del sistema y a la cabeza está el swapper (PID=0, ``task_struct_init_task``).
@@ -419,8 +419,9 @@ Los puntos de apropiación conllevan cambios de contexto(los cuales son muy cost
 Por tanto en Linux se hace una una planificación tanto síncrona y como asíncrona.
 
 ## TRABAJO EN GRUPO 
-Si la planificación no es apropiativa ¿Puede el procesador y el kernel manejar interrupciones?
-Para evitar las condiciones de carrera se utilizaría el mecanismo de protección:Kernel no apropiativo , por tanto no se debe planificar.
+***Si la planificación no es apropiativa ¿Puede el procesador y el kernel manejar interrupciones?***
+
+Para evitar las condiciones de carrera se utilizaría el mecanismo de protección: kernel no apropiativo , por tanto no se debe planificar.
 Peeeero debemos tratarlas ya que si no afectaría a la responsividad del SO frente a los dispositivos.
 Por tanto la apropiatividad afecta solo a los procesos y no a las interrupciones, asi se pueden manejar siempre que la RSI deje la máquina en el estado encontrado al inicio (Como solución se introduce una hebra de interrupción que tiene asociada una prioridad)
 
@@ -434,6 +435,8 @@ Esto afecta:
 2. Debemos reducir la latencia de despacho:
    -El kernel debe ser apropiativo 
    -NO planificación oculta
+
+*La planificación oculta es la planificación de funciones del kernel que no tienen prioridad antes que otros procesos con mucha prioridad.*
    
 ### Latencia de despacho
 
