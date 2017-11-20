@@ -834,8 +834,8 @@ A los navegadores le asignamos la mitad del peso anterior:
 Movemos una tarea al cgrupo escribiendo su PID en el archivo tasks.  
 `Firefox&`   
 Miro el Pid del navegador con echo $! y lo escribo en el fichero tasks. Los procesos cuyo pid aparezca en este fichero consumirán la mitad de cpu que los que escribamos en el otro fichero  
-`echo $! > /sys/fs/cgroup/cpu/navegadores/tasks  
-mplayer micancion.mp3&`   
+`echo $! > /sys/fs/cgroup/cpu/navegadores/tasks`  
+`mplayer micancion.mp3&`   
 Los procesos en este fichero consumen más cpu que los del grupo navegadores. El planificador garantiza que tienen le doble de cpu.  
 `echo $! > /sys/fs/cgroup/cpu/multimedia/tasks`  
 
