@@ -725,7 +725,7 @@ Todos los procesadores actuales cumplen la especificación ***Advanced Configura
 * **S-estados:** (dormidos en G1). Van de S1 a S5. Son estados en los que se van apagando diferentes componentes del ordenador, empezando por los que más consumen.
 * **C-estados:** son los estados de potencia en G0.C0 (activo), C1(halt), C2(stop), C3(deep sleep)... 
 * P-estados: el voltaje del procesador se modifica a escalones, no de forma continua. Por, ejemplo, pasar de 5V a 3V. Éstos dependen del procesador.
-* **T-estados:** son los conocidos como *estados throttles*. Estań relacionados con la gestión técnica, como estabilizar la temperatura, pero no se dedican a la gestión de energía. Introducen ciclos ociosos.
+* **T-estados:** son los conocidos como *estados throttles*. Estań relacionados con la gestión térmica, como estabilizar la temperatura, pero no se dedican a la gestión de energía. Introducen ciclos ociosos.
 
 ### Estructura CPUfreq
 * El **subsitema CPUfreq** es el responsable de ajustar explícitamente la frecuencia del procesador.
