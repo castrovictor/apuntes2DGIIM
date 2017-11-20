@@ -60,12 +60,29 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 
 1.	**Interrupciones:** Causadas por algún evento externo e independiente al proceso  actualmente en ejecución. El control se transfiere al manejador de interrupciones, que realiza determinadas tareas internas y que posteriormente salta a una rutina del SO, encargada de cada uno de los tipos de interrupciones en particular: 
 
-	+ **Interrupción de reloj:** El SO determina si el proceso ha excedido o no la unidad máxima de tiempo de reloj (rodaja de tiempo) antes de ser interrumpido.
-	+ **Interrupción de E/S:**  El SO determina qué acción de E/S ha ocurrido. Si la acción de E/S constituye un evento por el cal están esperando uno o más procesos, el SO mueve todos los procesos correspondientes al estado preparado. El SO puede decidir si reanuda la ejecución del proceso actualmente en estado Ejecutando o si lo expulsa para proceder con la ejecución de un proceso preparado de mayor prioridad.
-	+ **Fallo de memoria:** El procesador se encuentra con una referencia a una dirección de memoria virtual que no se encuentra en memoria. El SO debe traer el bloque que contiene la referencia desde memoria secundaria a memoria principal. Después de que se solicita la operación de E/S para traer el bloque a memoria, el proceso que causó el fallo pasa a estado bloqueado, el SO realiza un cambio de contexto y pone a ejecutar otro proceso. Cuando el bloque solicitado sea accesible, ya en memoria principal, el proceso pasa a preparado.
-2.	**Traps(Trampas):** Asociadas a una condición de error o excepción  irreversible generada dentro del proceso que se está ejecutando. 
-
-		Si es así, el proceso en ejecución pasa a estado inicializado y se hace un cambio de contexto. 
+	+ **Interrupción de reloj:** El SO determina si el proceso ha
+      excedido o no la unidad máxima de tiempo de reloj (rodaja de
+      tiempo) antes de ser interrumpido.
+	+ **Interrupción de E/S:** El SO determina qué acción de E/S ha
+      ocurrido. Si la acción de E/S constituye un evento por el cual
+      están esperando uno o más procesos, el SO mueve todos los
+      procesos correspondientes al estado preparado. El SO puede
+      decidir si reanuda la ejecución del proceso actualmente en
+      estado Ejecutando o si lo expulsa para proceder con la ejecución
+      de un proceso preparado de mayor prioridad.
+	+ **Fallo de memoria:** El procesador se encuentra con una
+      referencia a una dirección de memoria virtual que no se
+      encuentra en memoria. El SO debe traer el bloque que contiene la
+      referencia desde memoria secundaria a memoria principal. Después
+      de que se solicita la operación de E/S para traer el bloque a
+      memoria, el proceso que causó el fallo pasa a estado bloqueado,
+      el SO realiza un cambio de contexto y pone a ejecutar otro
+      proceso. Cuando el bloque solicitado sea accesible, ya en
+      memoria principal, el proceso pasa a preparado.
+2.	**Traps(Trampas):** Asociadas a una condición de error o excepción
+      irreversible generada dentro del proceso que se está
+      ejecutando. Si es así, el proceso en ejecución pasa a estado
+      inicializado y se hace un cambio de contexto.
 
 ## 1. IMPLEMENTACIÓN DE LAS ABSTRACCIONES DE PROCESO E HILO.
 
@@ -125,14 +142,16 @@ Es una estructura de datos que:
 
 ## ESTADO DE LOS PROCESOS
 
-El campo ``state`` del Descriptor de proceso  almacena el estado de un proceso en Linux. Un proceso puede encontrarse en los siguientes estados:  
+El campo ``state`` del Descriptor de proceso  almacena el estado de un proceso en Linux. Un proceso puede encontrarse en los siguientes estados:
+
 + ``TASK_RUNNING``: el proceso es ejecutable o está en ejecución.  
 + `TASK_INTERRUPTIBLE`: el proceso está bloqueado (dormido) de forma que puede ser interrumpido por una señal. Ejemplo: Espera de entrada de teclado.  
 + ``TASK_UNINTERRUPTIBLE``: proceso bloqueado no despertable por otra señal. Ejemplo: Espera de lectura de disco que no se produce.  
 + ``TASK_TRACED``: proceso que está siendo "traceado" por otro. Ejemplo: Cuando un proceso está siendo depurado, y su ejecución se para en un punto de ruptura.  
 + ``TASK_STOPPED``: la ejecución del procesose ha detenido por alguna de las señales de control de trabajo.
 
-El campo ``exit_state`` almacena los estados de los procesos que han finalizado:  
+El campo ``exit_state`` almacena los estados de los procesos que han finalizado: 
+
 + ``EXIT_DEAD``: va a ser eliminado, su padre ha invocado wait().  
 + ``EXIT_ZOMBIE``: el padre aún no ha realizado wait().  
 
@@ -162,14 +181,14 @@ Los procesos ``TASK_RUNNING`` están en diferentes colas de procesos ejecutables
 ### Jerarquías de procesos
 Para gestionar procesos de forma conjunta, todos los procesos forman parte de una jerarquía, con el proceso: systemd / init (PID=1) a la cabeza.
 Todo proceso tiene exactamente un padre.
-Procesos hermanos (``siblings``) = procesos con el mismo padre.
+Procesos hermanos (``siblings``) son procesos con el mismo padre.
 La relación entre procesos se almacena en el PCB:
 
 + ``parent``: puntero al padre
 + ``children``: lista de hijos.
 …
 
-*El padre de un proceso es que lo creó, si el padre(parent) muere, a veces el creado se engancha a otro, conocido como real parent.*
+*El padre de un proceso es aquel que lo creó, si el padre(parent) muere, a veces el creado se engancha a otro, conocido como real parent.*
 
 ## MANIPULACIÓN DE PROCESOS
 
@@ -240,7 +259,7 @@ Comparten todas (mm_struct, files_struct, fs_struct, signal_struct, tty_struct) 
 
 ### Hilos kernel
 
-Son hilos que no tienen espacio de direcciones de usuario. Por tanto, su descriptor tiene `task_struct->mm=NULL`. Realizan labores de sistema (sistuyendo a los demonios de Unix)  Para crearlos, debemos hacerlo desde otro hilo kernel con la funcion `kthread_create()`.
+Son hilos que no tienen espacio de direcciones de usuario. Por tanto, su descriptor tiene `task_struct->mm=NULL`. Realizan labores de sistema (sustuyendo a los demonios de Unix)  Para crearlos, debemos hacerlo desde otro hilo kernel con la funcion `kthread_create()`.
 
 ### Terminar un proceso
 
