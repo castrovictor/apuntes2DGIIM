@@ -633,11 +633,9 @@ Si P2 decrementa su prioridad con nice = 1, subiendo así de nivel, decrementa s
 
 `Peso actual de P2 : 1024 / 1.25 = 1024 * 0.8 = 819.2 ⋍ 820` 
 
-El 0.8 se obtiene: 
+Para calcular el nuevo peso del proceso, se utiliza la fórmula 1024/(1.25^n), donde *n* es el nice del proceso (en nuestro ejemplo, n=1)
 
-`% Peso a quitar = % a restar * nº procesos existentes = 10% * 2 = 20%`
 
-Luego me quedo con el 80% del peso inicial del proceso.
 Así, el % de CPU asignado a cada uno es: 
 
 ```
@@ -737,7 +735,7 @@ Todos los procesadores actuales cumplen la especificación ***Advanced Configura
 
 * G0: estado de funcionamiento (estados-C y estados-P)
 
-* G1: estado dormido (S-estados
+* G1: estado dormido (S-estados)
 
 * G2: estado apagado soft
 
