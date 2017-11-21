@@ -633,7 +633,7 @@ Si P2 decrementa su prioridad con nice = 1, subiendo así de nivel, decrementa s
 
 `Peso actual de P2 : 1024 / 1.25 = 1024 * 0.8 = 819.2 ⋍ 820` 
 
-Para calcular el nuevo peso del proceso, se utiliza la fórmula 1024/(1.25^n), donde *n* es el nice del proceso (en nuestro ejemplo, n=1)
+Para calcular el nuevo peso del proceso, se utiliza la fórmula $\frac{1024}{1.25^{n}}$, donde *n* es el nice del proceso (en nuestro ejemplo, n=1)
 
 
 Así, el % de CPU asignado a cada uno es: 
