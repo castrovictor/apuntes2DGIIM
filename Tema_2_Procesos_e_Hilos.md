@@ -1,5 +1,9 @@
-
 # TEMA 2: PROCESOS E HILOS.
+
+> Doble Grado Ingeniería Informática y Matemáticas, Universidad de Granada.
+> El temario corresponde al impartido en la asignatura de Sistemas Operativos durante el curso por el profesor José Antonio Gómez Hernández.
+> Los apuntes han sido elaborados por varios autores, recogidos al final de los apuntes.
+
 ## REPASO
 ##### PROCESO:
 1. Programa en ejecución.
@@ -861,4 +865,19 @@ Miro el Pid del navegador con echo $! y lo escribo en el fichero tasks. Los proc
 `mplayer micancion.mp3&`   
 Los procesos en este fichero consumen más cpu que los del grupo navegadores. El planificador garantiza que tienen le doble de cpu.  
 `echo $! > /sys/fs/cgroup/cpu/multimedia/tasks`  
+
+
+## Autores
+En la elaboración de este documento han participado los siguientes autores:
+* [Víctor Castro Serrano](https://github.com/vicase "https://github.com/vicase")
+* Maximino Suárez van Gelderen
+* Laura Sánchez Parra
+* Samuel Medina Gutiérrez 
+* Carmen Vilchez Solís
+* Francisco Vázquez Escobar
+* Patricia Córdoba Hidalgo
+* Alejandro Alonso Membrilla
+* Yábir García Benchakhtir
+* Pilar Navarro Ramírez
+
 
