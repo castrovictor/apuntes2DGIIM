@@ -1,8 +1,8 @@
 # TEMA 2: PROCESOS E HILOS.
 
 > Doble Grado Ingeniería Informática y Matemáticas, Universidad de Granada.
-> El temario corresponde al impartido en la asignatura de Sistemas Operativos durante el curso por el profesor José Antonio Gómez Hernández.
-> Los apuntes han sido elaborados por varios autores, recogidos al final de los apuntes.
+> El temario corresponde al impartido en la asignatura de Sistemas Operativos durante el curso 2017-2018 por el profesor José Antonio Gómez Hernández.
+> Los apuntes han sido elaborados por varios autores, recogidos al final de este documento.
 
 ## REPASO
 ##### PROCESO:
