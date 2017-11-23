@@ -870,15 +870,16 @@ Los procesos en este fichero consumen más cpu que los del grupo navegadores. El
 
 ## Autores
 En la elaboración de este documento han participado los siguientes autores:
-* [Víctor Castro Serrano](https://github.com/vicase "https://github.com/vicase")
-* Maximino Suárez van Gelderen
-* Laura Sánchez Parra
-* Samuel Medina Gutiérrez 
-* Carmen Vilchez Solís
-* Francisco Vázquez Escobar
-* Patricia Córdoba Hidalgo
-* Alejandro Alonso Membrilla
-* Yábir García Benchakhtir
-* Pilar Navarro Ramírez
+
++ [Víctor Castro Serrano](https://github.com/vicase "https://github.com/vicase")
++ Maximino Suárez van Gelderen
++ Laura Sánchez Parra
++ Samuel Medina Gutiérrez 
++ Carmen Vilchez Solís
++ Francisco Vázquez Escobar
++ Patricia Córdoba Hidalgo
++ Alejandro Alonso Membrilla
++ Yábir García Benchakhtir
++ Pilar Navarro Ramírez
 
 
