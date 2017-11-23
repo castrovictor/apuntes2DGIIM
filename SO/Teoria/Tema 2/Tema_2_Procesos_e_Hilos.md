@@ -94,7 +94,7 @@ Un cambio de contexto puede ocurrir en cualquier instante en el que el SO obtien
 
 En el caso de Linux, se denomina **Descriptor de Proceso**, y viene dado por la estructura ``task_struct``.
 
-![](Process+Control+Block-+task_struct.jpg){#id .class width=500 height=500px}
+![](imagenes/Process+Control+Block-+task_struct.jpg){#id .class width=500 height=500px}
 
 
 
