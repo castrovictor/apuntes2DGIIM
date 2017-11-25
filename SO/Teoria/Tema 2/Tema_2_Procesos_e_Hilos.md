@@ -877,7 +877,7 @@ En la elaboración de este documento han participado los siguientes autores:
 + Samuel Medina Gutiérrez 
 + Carmen Vilchez Solís
 + Francisco Vázquez Escobar
-+ Patricia Córdoba Hidalgo
++ [Patricia Córdoba Hidalgo](https://github.com/patriciacorhid/)
 + Alejandro Alonso Membrilla
 + Yábir García Benchakhtir
 + Pilar Navarro Ramírez
