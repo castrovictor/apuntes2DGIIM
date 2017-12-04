@@ -51,3 +51,31 @@ controlador de memoria.
 
 La separación de espacios me obliga a realizar una
 traducción de direcciones:
+
+FALTA IMAGEN
+
+**+ Unidad de Gestión de Memoria MMU (Memory Management Unit):**
+ Dispositivo hardware que se encarga de: 
+ 1. Traducir direcciones virtuales en direcciones físicas.
+ 2. Implementar la protección.
+ 
+La forma de la MMU dependerá del esquema de gestión
+de memoria implementado en hardware. En el esquema
+más simple, contendrá un registro de reubicación que
+almacena el valor a sumar a cada dirección generada por
+el proceso de usuario al mismo tiempo que es enviado a
+memoria.
+
+       - **Funcionamiento: **
+           Cuando el procesador genera una dirección virtual, (el compilador es el que genera el espacio
+           del proceso, por lo tanto, es el que asigna direcciones). Lo que lee la CPU del código binario son
+           direcciones de memoria virtuales y es la MMU la que traduce esas direcciones virtuales en físicas y si no
+           puede acceder a ella, genera una excepción.
+           
+       - Fragmentación:  fracción de memoria que no es asignable debido al propio mecanismo de gestión de memoria.
+
+          Los sistemas de gestión de memoria han evolucionado con el objetivo principal de reducir la fragmentación de memoria.
+          Al desacoplar los espacios lógicos de los físicos, podemos hacer que el espacio de direcciones de un proceso no sea continuo,
+          podemos trocearlo, reduciendo así la demanda de memoria contigua.
+          Los SOs actuales suelen utilizar paginación como esquema básico de gestión de memoria, si bien, dependiendo del procesador,             deben también utilizar segmentación. Por ejemplo, los procesadores Intel implementan segmentación como esquema básico de                 gestión de memoria (protección:modos de funcionamiento del procesador) y opcionalmente se puede activar o no la paginación.
+   
