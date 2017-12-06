@@ -156,4 +156,4 @@ struct mm_struct {
 	unsigned long total_vm; //Número de páginas totales
 }
 
-![ejemplo de vm-area](images/vm-area.png)
+![ejemplo de vm-area](images/vm_area.png)
