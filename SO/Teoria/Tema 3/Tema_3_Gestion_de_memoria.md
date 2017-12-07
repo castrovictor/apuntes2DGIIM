@@ -77,6 +77,7 @@ memoria.
    Los sistemas de gestión de memoria han evolucionado con el objetivo principal de reducir la fragmentación de memoria. Al desacoplar      los espacios lógicos de los físicos, podemos hacer que el espacio de direcciones de un proceso no sea continuo, podemos trocearlo,      reduciendo así la demanda de memoria contigua.
    
    Los SOs actuales suelen utilizar paginación como esquema básico de gestión de memoria, si bien, dependiendo del procesador,              deben también utilizar segmentación. Por ejemplo, los procesadores Intel implementan segmentación como esquema básico de                gestión de memoria (protección:modos de funcionamiento del procesador) y opcionalmente se puede activar o no la paginación.
+   
 ## 3. Gestión de Memoria en Linux
 ### Niveles de Gestión de Memoria.
 
@@ -111,7 +112,7 @@ La implementación Linux de gestión de memoria cubre:
 	2. Distribuidores tableta, para asignar memoria 
 	inferior a una página.
 			
-	3.Mecanismo vmalloc() para asignar bloques no contiguos de memoria.
+	3.Mecanismo `vmalloc()` para asignar bloques no contiguos de memoria.
 	
 * Memoria de usuario:
 			
@@ -123,17 +124,16 @@ La implementación Linux de gestión de memoria cubre:
 La asignación de memoria dinámica a los procesos de usuario tiene requisitos 
 diferentes que a los del kernel:
 
-	* Las peticiones de procesos no se consideran urgentes: el kernel intenta 
-	diferir 
-	su asignación, ya que la solicitud no indica utilización inmediata.
+* Las peticiones de procesos no se consideran urgentes: el kernel intenta 
+diferir su asignación, ya que la solicitud no indica utilización inmediata.
 	
-	* Los procesos de usuario no son confiables: el kernel debe estar preparado 
-	para atrapar errores de direccionamiento.
+* Los procesos de usuario no son confiables: el kernel debe estar preparado 
+para atrapar errores de direccionamiento.
 	
-	* Cada proceso tiene su propio espacio de direcciones separado del resto de 
-	procesos.
+* Cada proceso tiene su propio espacio de direcciones separado del resto de 
+procesos.
 	
-	* El kernel puede anadir/suprimir rangos de direcciones lineales.
+* El kernel puede anadir/suprimir rangos de direcciones lineales.
 	
 ### Regiones de memoria	
 	
@@ -145,9 +145,9 @@ acceso. Por eficiencia, estas tienen un tamaño múltiplo del tamaño de página
 
 EJEMPLO:
 
-	* región de código: permisos lectura-ejecución.
-	* región de datos : permisos de lectura-escritura.
-	* región de pila  : lectura-escritura, crecimiento.
+> * región de código: permisos lectura-ejecución.
+> * región de datos : permisos de lectura-escritura.
+> * región de pila  : lectura-escritura, crecimiento.
 
 Las tablas de páginas NO son adecuadas para representar espacios de direcciones
 grandes, especialmente si son dispersos, que entonces se superpone otra gestión 
