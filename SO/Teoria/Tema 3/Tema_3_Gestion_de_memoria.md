@@ -96,28 +96,27 @@ de los procesos (malloc, free, ...)
 
 Tiene dos interfaces:
 
->· Interfaz de llamadas al sistema: interfaz de usuario.
+· Interfaz de llamadas al sistema: interfaz de usuario.
 	
->· Interfaz intra-kernel: interfaz de mm al resto del kernel.
+· Interfaz intra-kernel: interfaz de mm al resto del kernel.
 
 ### Elementos de Gestión.
 
 La implementación Linux de gestión de memoria cubre:
 
-	* Memoria kernel:
+* Memoria kernel:
+	1. Distribuidor sistema amigo para asignar grandes bloques contiguos 
+	de memoria.
+
+	2. Distribuidores tableta, para asignar memoria 
+	inferior a una página.
+			
+	3.Mecanismo vmalloc() para asignar bloques no contiguos de memoria.
 	
-			1. Distribuidor sistema amigo para asignar grandes bloques contiguos 
-			de memoria.
+* Memoria de usuario:
 			
-			2. Distribuidores tableta, para asignar memoria 
-			inferior a una página.
-			
-			3.Mecanismo vmalloc() para asignar bloques no contiguos de memoria.
-	
-	* Memoria de usuario:
-			
-			1. Mecanismos de construcción y gestión de los espacios de direcciones 
-			de los procesos.
+	1. Mecanismos de construcción y gestión de los espacios de direcciones 
+	de los procesos.
 
 ### Gestión de memoria para procesos.
 
