@@ -72,11 +72,29 @@ memoria.
            direcciones de memoria virtuales y es la MMU la que traduce esas direcciones virtuales en físicas y si no
            puede acceder a ella, genera una excepción.
            
-   - **Fragmentación:**  fracción de memoria que no es asignable debido al propio mecanismo de gestión de memoria.
-   
+    **Problema:**  Fragmentación: fracción de memoria que no es asignable debido al propio mecanismo de gestión de memoria.
    Los sistemas de gestión de memoria han evolucionado con el objetivo principal de reducir la fragmentación de memoria. Al desacoplar      los espacios lógicos de los físicos, podemos hacer que el espacio de direcciones de un proceso no sea continuo, podemos trocearlo,      reduciendo así la demanda de memoria contigua.
    
    Los SOs actuales suelen utilizar paginación como esquema básico de gestión de memoria, si bien, dependiendo del procesador,              deben también utilizar segmentación. Por ejemplo, los procesadores Intel implementan segmentación como esquema básico de                gestión de memoria (protección:modos de funcionamiento del procesador) y opcionalmente se puede activar o no la paginación.
+   
+   - **Paginación**
+   La MMU “divide” el programa en bloques del mismo tamaño, denominados páginas, para cargarlos en bloques de memoria principal del mismo tamaño, denominados marcos. El SO mantiene la pista de cuales son los marcos que contienen las páginas de un programa mediante una estructura de datos por proceso denominada tabla de páginas (TP). Esta estructura tiene una entrada de TP (PTE) por cada página del proceso, donde cada entrada indica cual es la dirección base de memoria principal del marco que la contiene. También contiene información de protección de la página.
+   
+Dos tipos:
+
+Paginación simple: Se introduce una caché hardware en la MMU para acelerar la traducción (TLB,
+especie de chuleta, relación d.virtual con d.física, hago una consulta en todas las filas, y si está pues
+me evita buscar).
+Paginación multinivel: Desarrollada en el tema.
+
+  - **Segmentación**
+  Troceamos el programa en unidades lógicas de programación (procedimientos, pilas, código, datos, tabla de símbolos, etc.)
+denominadas segmentos.Cada segmento suele tener una tamaño diferente del resto. Ahora, una dirección lógica es una tupla:
+<número_de_segmento, desplazamiento>. Cada programa tiene una Tabla de Segmentos dondecada entrada tiene los
+siguientes elementos:
+ base - dirección física donde reside el inicio del segmento en memoria.
+ límite - longitud del segmento.
+   
    
 ## 3. Gestión de Memoria en Linux
 ### Niveles de Gestión de Memoria.
