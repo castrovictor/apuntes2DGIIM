@@ -96,9 +96,9 @@ de los procesos (malloc, free, ...)
 
 Tiene dos interfaces:
 
-· Interfaz de llamadas al sistema: interfaz de usuario.
+>· Interfaz de llamadas al sistema: interfaz de usuario.
 	
-· Interfaz intra-kernel: interfaz de mm al resto del kernel.
+>· Interfaz intra-kernel: interfaz de mm al resto del kernel.
 
 ### Elementos de Gestión.
 
