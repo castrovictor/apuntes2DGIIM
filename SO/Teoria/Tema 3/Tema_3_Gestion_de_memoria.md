@@ -77,7 +77,94 @@ memoria.
    Los sistemas de gestión de memoria han evolucionado con el objetivo principal de reducir la fragmentación de memoria. Al desacoplar      los espacios lógicos de los físicos, podemos hacer que el espacio de direcciones de un proceso no sea continuo, podemos trocearlo,      reduciendo así la demanda de memoria contigua.
    
    Los SOs actuales suelen utilizar paginación como esquema básico de gestión de memoria, si bien, dependiendo del procesador,              deben también utilizar segmentación. Por ejemplo, los procesadores Intel implementan segmentación como esquema básico de                gestión de memoria (protección:modos de funcionamiento del procesador) y opcionalmente se puede activar o no la paginación.
-   
+## 3. Gestión de Memoria en Linux
+### Niveles de Gestión de Memoria.
+
+Existen dos niveles con requisitos diferentes:
+
+* **Gestor de memoria de SO:**
+	
+	· Asigna porciones de memoria a los procesos (es
+	no crítica).
+	
+	· Asigna memoria a los subsistemas del SO (crítica).
+
+* **Gestor de memoria de procesos:** gestiń dinámica 
+de los procesos (malloc, free, ...)
+
+### Gestor de memoria en Linux
+
+Tiene dos interfaces:
+
+· Interfaz de llamadas al sistema: interfaz de usuario.
+	
+· Interfaz intra-kernel: interfaz de mm al resto del kernel.
+
+### Elementos de Gestión.
+
+La implementación Linux de gestión de memoria cubre:
+
+	* Memoria kernel:
+	
+			1. Distribuidor sistema amigo para asignar grandes bloques contiguos 
+			de memoria.
+			
+			2. Distribuidores tableta, para asignar memoria 
+			inferior a una página.
+			
+			3.Mecanismo vmalloc() para asignar bloques no contiguos de memoria.
+	
+	* Memoria de usuario:
+			
+			1. Mecanismos de construcción y gestión de los espacios de direcciones 
+			de los procesos.
+
+### Gestión de memoria para procesos.
+
+La asignación de memoria dinámica a los procesos de usuario tiene requisitos 
+diferentes que a los del kernel:
+
+	* Las peticiones de procesos no se consideran urgentes: el kernel intenta 
+	diferir 
+	su asignación, ya que la solicitud no indica utilización inmediata.
+	
+	* Los procesos de usuario no son confiables: el kernel debe estar preparado 
+	para atrapar errores de direccionamiento.
+	
+	* Cada proceso tiene su propio espacio de direcciones separado del resto de 
+	procesos.
+	
+	* El kernel puede anadir/suprimir rangos de direcciones lineales.
+	
+### Regiones de memoria	
+	
+El kernel representa un intervalo de direcciones lineales contiguas con el mismo
+tipo de protección mediante un recurso denominado región de memoria.
+
+Estas se caracterizan por su dirección de inicio, su longitud y los derechos de 
+acceso. Por eficiencia, estas tienen un tamaño múltiplo del tamaño de página.
+
+EJEMPLO:
+
+	* región de código: permisos lectura-ejecución.
+	* región de datos : permisos de lectura-escritura.
+	* región de pila  : lectura-escritura, crecimiento.
+
+Las tablas de páginas NO son adecuadas para representar espacios de direcciones
+grandes, especialmente si son dispersos, que entonces se superpone otra gestión 
+de memoria sobre la paginación.
+
+Linux representa cada región de memoria con una estructura denominada vm-área.
+Las vm-área contienen información necesaria para poder establecer la traducción
+de una dirección que la TP no pueda realizar.
+
+El ED de un proceso se representa como una lista de vm-áreas. Si el número de
+vm-áreas se organizan en un árbol rojo-negro.
+
+Las vm-áreas no tienen contador de referencias, por lo que solo pueden pertenecer 
+a un proceso
+	
+	   
 
 
 ## Linux y VM-areas
