@@ -1,8 +1,6 @@
 # TEMA 3: GESTIÓN DE MEMORIA
 ## REPASO
 ### Elementos hardware
-Los computadores mantienen una jerarquía de memoria
-para mejorar el acceso de la CPU a memoria.
 
 **▷** **MEMORIAS CACHÉ:**
 memorias intermedias que mantienen instrucciones/datos
@@ -14,18 +12,7 @@ previamente accedidos y que son más rápidas que la RAM.
  
  · **Fallo de caché:** la instrucción/dato no esta en la misma.
  
- 
- 
- Las cachés “funcionan” porque explotan las localidad de las
-referencias del código, datos, y pila de los programas.
-
-**▷TIPOS DE LOCALIDAD:**
-
- · **Espacial:** si un item es referenciado, las direcciones
-próximas a él tienden también a ser referenciadas.
-
- · **Temporal:** si un item referenciado, tiende de nuevo a ser
-referenciado en breve.
+ - **Funcionamiento de una caché:** Las memorias cachés funcionan gracias a la localidad de las referencias del código, datos, etc, es decir, normalmente, si un item es referenciado, las direcciones próximas a el tienden a ser referenciadas, por lo tanto, **localidad espacial**, y si un item es referenciado, suele volver a usarse, por lo tanto, **localidad temporal**.
 
 **▷TIEMPO DE ACCESO EFECTIVO(TAE)**: Coste de acceder a memoria.
 **TAE = p·ta + (1-p)·tf**   donde: **p**=probabilidad de acierto; **ta**=tiempo de acceso si
@@ -67,14 +54,13 @@ el proceso de usuario al mismo tiempo que es enviado a
 memoria.
 
   - **Funcionamiento:**
-           Cuando el procesador genera una dirección virtual, (el compilador es el que genera el espacio
-           del proceso, por lo tanto, es el que asigna direcciones). Lo que lee la CPU del código binario son
+           Cuando el procesador genera una dirección virtual, es realmente el compilador el que genera el espacio
+           del proceso, por lo tanto, es el que asigna direcciones. Lo que lee la CPU del código binario son
            direcciones de memoria virtuales y es la MMU la que traduce esas direcciones virtuales en físicas y si no
            puede acceder a ella, genera una excepción.
            
     **Problema:**  Fragmentación: fracción de memoria que no es asignable debido al propio mecanismo de gestión de memoria.
-   Los sistemas de gestión de memoria han evolucionado con el objetivo principal de reducir la fragmentación de memoria. Al desacoplar      los espacios lógicos de los físicos, podemos hacer que el espacio de direcciones de un proceso no sea continuo, podemos trocearlo,      reduciendo así la demanda de memoria contigua.
-   
+     
    Los SOs actuales suelen utilizar paginación como esquema básico de gestión de memoria, si bien, dependiendo del procesador,              deben también utilizar segmentación. Por ejemplo, los procesadores Intel implementan segmentación como esquema básico de                gestión de memoria (protección:modos de funcionamiento del procesador) y opcionalmente se puede activar o no la paginación.
    
    - **Paginación**
