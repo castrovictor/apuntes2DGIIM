@@ -110,6 +110,16 @@ Para solucionar este problema, se decidió paginar la tabla de páginas. Consist
  
  3. Los TLB mantienen un TAE razonable. 
 
+## Concepto previo: Unidad de Gestión de Memoria (no sé donde meterlo exactamente)
+
+La **MMU (Memory Management Unit)** es un dispositivo hardware que traduce direcciones virtuales a direcciones físicas. Este dispositivo está gestionado por el SO.
+
+En el esquema MMU más simple, el valor del registro base se añade a cada dirección generada por el proceso de usuario al mismo tiempo que es enviado a memoria.
+
+El programa de usuario trata solo con direcciones lógicas, nunca con direcciones reales.
+
+Además de la traducción, el MMU deberá detectar si la dirección aludida se encuentra o no en memoria principal y generar una excepción si no se encuentra. La MMU cuenta con sus propios registros. 
+
    
 ## 3. Gestión de Memoria en Linux
 
