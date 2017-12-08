@@ -123,7 +123,7 @@ Además de la traducción, el MMU deberá detectar si la dirección aludida se e
    
 ## 3. Gestión de Memoria en Linux
 
-En un sistema monorpogramado, la memoria se divide en dos partes: una parte para el sistema operativo (monitor residente, núcleo) y una parte para el programa actualmente en ejecución. En un sistema multiprogramado, la parte "usuario" de la memoria se debe subdividir posteriormente para acomodar múltiples procesos. El sistema operativo es el encargado de la tarea de subdivisión y a esta tarea se le denomina **gestión de memoria**, vital en un sistema multiprogramado para el buen aporvechamiento de la CPU y ejecucuión de los procesos. 
+En un sistema monopogramado, la memoria se divide en dos partes: una parte para el sistema operativo (monitor residente, núcleo) y una parte para el programa actualmente en ejecución. En un sistema multiprogramado, la parte "usuario" de la memoria se debe subdividir posteriormente para acomodar múltiples procesos. El sistema operativo es el encargado de la tarea de subdivisión y a esta tarea se le denomina **gestión de memoria**, vital en un sistema multiprogramado para el buen aporvechamiento de la CPU y ejecucuión de los procesos. 
 
 ### Niveles de Gestión de Memoria.
 
