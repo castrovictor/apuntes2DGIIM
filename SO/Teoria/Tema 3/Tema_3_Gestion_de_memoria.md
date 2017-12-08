@@ -155,10 +155,12 @@ La implementación Linux de gestión de memoria cubre:
 	1. Distribuidor sistema amigo para asignar grandes bloques contiguos 
 	de memoria.
 
-	2. Distribuidores tableta, para asignar memoria 
+	2. Distribuidores tableta(slab, slob, slub¹), para asignar memoria 
 	inferior a una página.
 			
 	3.Mecanismo `vmalloc()` para asignar bloques no contiguos de memoria.
+
+*¹Son los tres distribuidores de memoria (memory allocators) existentes en el kernel de Linux. Cada uno de ellos se usa con un objetivo concreto a la hora de optimizar la memoria principal*
 	
 * Memoria de usuario:
 			
