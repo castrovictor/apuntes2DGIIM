@@ -70,9 +70,9 @@ memoria.
    
 Dos tipos:
 
-Paginación simple: Se introduce una caché hardware en la MMU para acelerar la traducción (TLB,
-especie de chuleta, relación d.virtual con d.física, hago una consulta en todas las filas, y si está pues
-me evita buscar).
+Paginación simple: Se introduce una caché hardware en la MMU para acelerar la traducción, el TLB. 
+Translation Lookaside Buffer (TLB) es una memoria caché administrada por la MMU, que contiene partes de la tabla de paginación, es decir, relaciones entre direcciones lógicas y físicas. Posee un número fijo de entradas y se utiliza para obtener la traducción rápida de direcciones. Si no existe una entrada buscada, se deberá revisar la tabla de paginación y tardará varios ciclos más, sobre todo si la página que contiene la dirección buscada no está en memoria principal. Si en la tabla de paginación no se encuentra la dirección buscada, saltará una interrupción conocida como fallo de página.
+
 Paginación multinivel: Desarrollada en el tema.
 
   - **Segmentación**
@@ -80,9 +80,30 @@ Paginación multinivel: Desarrollada en el tema.
 denominadas segmentos.Cada segmento suele tener una tamaño diferente del resto. Ahora, una dirección lógica es una tupla:
 <número_de_segmento, desplazamiento>. Cada programa tiene una Tabla de Segmentos dondecada entrada tiene los
 siguientes elementos:
+
  base - dirección física donde reside el inicio del segmento en memoria.
+
  límite - longitud del segmento.
    
+## 1. Paginación Multinivel
+
+Justificación: Para una arquitectura de 32 bits, con un espacio de direccones de 4GB=2^32, necesitaremos tablas de página de 2^20 entradas, con 4B cada una, lo que nos dará lugar a una tabla de página (TP) de 4MB (¡GIGANTE!). 
+Para solucionar este problema, se decidió paginar la tabla de páginas.
+
+**Paginación a 2 niveles**
+
+![](https://www.google.es/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwitoKCts_rXAhXIqxoKHbFmAR8QjRwIBw&url=https%3A%2F%2Fchsos20152912029.wordpress.com%2Ftag%2Fpaginacion-de-dos-niveles%2F&psig=AOvVaw38Z8vlImEtB4imgCEusKHM&ust=1512822013908155)
+ 
+- ¿Cómo funciona?
+
+![](https://chsos20141911030.files.wordpress.com/2014/06/sin-tc3adtulo5.png?w=700)
+1) Se busca en la tabla de primer nivel (N1) la "dir" que apunta a la tabla de segundo nivel.
+2) Se carga la taba de página de segundo nvel (N2). 
+3) Se busca en la tabla (N2) la página de N2.
+4) Se carga la página y con el offset encontramos la dirección física buscada.
+
+
+ 
    
 ## 3. Gestión de Memoria en Linux
 
