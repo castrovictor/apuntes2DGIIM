@@ -102,6 +102,13 @@ Para solucionar este problema, se decidió paginar la tabla de páginas. Consist
 3) Se busca en la tabla (N2) la página de N2.
 4) Se carga la página y con el offset encontramos la dirección física buscada.
 
+Para calcular las entradas de las tablas de primer y segundo nivel y el offset de la posición de memoria indicada por una dirección lógica se sigue el siguiente procedimiento:
+1) Dividimos la dirección lógica entre el tamaño del número de tablas de segundo nivel multiplicado por el tamaño de página. 
+2) El cociente de esa división es el índice dentro de la tabla de primer nivel al que corresponde la dirección (dicha posición en la tabla de primer nivel redirecciona a la tabla de segundo nivel correspondiente).
+3) Dividimos el resto de la división anterior entre el tamaño de página. 
+4) El cociente es el índice de la tabla de segundo nivel correspondiente a la dirección.
+5) El resto de esta división es la posición dentro de la página a la que señala la dirección.
+
 - Ventajas:
 
  1.Las tablas de segundo nivel no tienen porqué estar en memoria, pueden estar en disco e ir construyéndose mientras vayan haciendo falta. Por ejemplo, si yo tengo todo el código de tratamiento de código en disco y en la ejecución de mi programa no se produce nungún error, no será necesario crear las páginas de errores. 
