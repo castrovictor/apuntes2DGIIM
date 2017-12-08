@@ -61,7 +61,9 @@ memoria.
            
     **Problema:**  Fragmentación: fracción de memoria que no es asignable debido al propio mecanismo de gestión de memoria.
      
-   Los SOs actuales suelen utilizar paginación como esquema básico de gestión de memoria, si bien, dependiendo del procesador,              deben también utilizar segmentación. Por ejemplo, los procesadores Intel implementan segmentación como esquema básico de                gestión de memoria (protección:modos de funcionamiento del procesador) y opcionalmente se puede activar o no la paginación.
+   Los SOs actuales suelen utilizar paginación como esquema básico de gestión de memoria, si bien, dependiendo del procesador,              deben también utilizar segmentación. Por ejemplo, los procesadores Intel implementan segmentación como esquema básico de                gestión de memoria (protección:modos de funcionamiento del procesador) y opcionalmente se puede activar o no la paginación. Existen dos tipos de fragmentación:
+1. **Fragmentación interna**: se da en los sistemas que usan un particionamiento fijo de la memoria. La memoria está dividia en bloques de igual tamaño. Un proceso se carga en un bloque, ocupándolo entero, por pequeño que sea el proceso. Por ejemplo, un programa de menos de 2Mb podría cargarse en un bloque de 8Mb, desperdiciando la memoria. Esto es lo que se conoce como **fragmentación interna**.
+2. **Fragmentación externa**: en el particionamiento dinámico, a un proceso se le asigna en memoria principal exactamente lo que ocupa. Con el tiempo, van quedando huecos pequeños de memoria que no pueden aporvecharse ya que no cabe ningún proceso, fenómeno conocido como **fragmentación externa**. *Para solucionarlo, se utiliza la compactación.*
    
    - **Paginación**
    La MMU “divide” el programa en bloques del mismo tamaño, denominados páginas, para cargarlos en bloques de memoria principal del mismo tamaño, denominados marcos. El SO mantiene la pista de cuales son los marcos que contienen las páginas de un programa mediante una estructura de datos por proceso denominada tabla de páginas (TP). Esta estructura tiene una entrada de TP (PTE) por cada página del proceso, donde cada entrada indica cual es la dirección base de memoria principal del marco que la contiene. También contiene información de protección de la página.
@@ -83,6 +85,9 @@ siguientes elementos:
    
    
 ## 3. Gestión de Memoria en Linux
+
+En un sistema monorpogramado, la memoria se divide en dos partes: una parte para el sistema operativo (monitor residente, núcleo) y una parte para el programa actualmente en ejecución. En un sistema multiprogramado, la parte "usuario" de la memoria se debe subdividir posteriormente para acomodar múltiples procesos. El sistema operativo es el encargado de la tarea de subdivisión y a esta tarea se le denomina **gestión de memoria**, vital en un sistema multiprogramado para el buen aporvechamiento de la CPU y ejecucuión de los procesos. 
+
 ### Niveles de Gestión de Memoria.
 
 Existen dos niveles con requisitos diferentes:
