@@ -94,7 +94,7 @@ Existen dos niveles con requisitos diferentes:
 	
 	· Asigna memoria a los subsistemas del SO (crítica).
 
-* **Gestor de memoria de procesos:** gestiń dinámica 
+* **Gestor de memoria de procesos:** gestión dinámica 
 de los procesos (malloc, free, ...)
 
 ### Gestor de memoria en Linux
