@@ -88,12 +88,12 @@ siguientes elementos:
 ## 1. Paginación Multinivel
 
 Justificación: Para una arquitectura de 32 bits, con un espacio de direccones de 4GB=2^32, necesitaremos tablas de página de 2^20 entradas, con 4B cada una, lo que nos dará lugar a una tabla de página (TP) de 4MB (¡GIGANTE!). 
-Para solucionar este problema, se decidió paginar la tabla de páginas.
+Para solucionar este problema, se decidió paginar la tabla de páginas. Consiste en partir la zona en la que describo la tabla de página  en 2^n partes de k bits.
 
 **Paginación a 2 niveles**
 
-![](https://www.google.es/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwitoKCts_rXAhXIqxoKHbFmAR8QjRwIBw&url=https%3A%2F%2Fchsos20152912029.wordpress.com%2Ftag%2Fpaginacion-de-dos-niveles%2F&psig=AOvVaw38Z8vlImEtB4imgCEusKHM&ust=1512822013908155)
- 
+![](https://chsos20141911030.files.wordpress.com/2014/05/sin-tc3adtulo43.png?w=700)
+
 - ¿Cómo funciona?
 
 ![](https://chsos20141911030.files.wordpress.com/2014/06/sin-tc3adtulo5.png?w=700)
@@ -102,8 +102,14 @@ Para solucionar este problema, se decidió paginar la tabla de páginas.
 3) Se busca en la tabla (N2) la página de N2.
 4) Se carga la página y con el offset encontramos la dirección física buscada.
 
+- Ventajas:
 
+ 1.Las tablas de segundo nivel no tienen porqué estar en memoria, pueden estar en disco e ir construyéndose mientras vayan haciendo falta. Por ejemplo, si yo tengo todo el código de tratamiento de código en disco y en la ejecución de mi programa no se produce nungún error, no será necesario crear las páginas de errores. 
  
+ 2. Los espacios reales de los procesos son dispersos(tienen muchos huecos que no se usan), entonces para aquellas páginas que sean huecos, no necesito construirlas, es decir, siempre construyo las páginas de primer nivel pero puedo evitar construir aquellas páginas de segundo nivel que no referencien ninguna información.
+ 
+ 3. Los TLB mantienen un TAE razonable. 
+
    
 ## 3. Gestión de Memoria en Linux
 
