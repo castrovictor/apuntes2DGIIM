@@ -296,5 +296,5 @@ struct mm_struct {
 	unsigned long rss; //Páginas contenidas
 	unsigned long total_vm; //Número de páginas totales
 }
-
+```
 ![ejemplo de vm-area](images/vm_area.png)
