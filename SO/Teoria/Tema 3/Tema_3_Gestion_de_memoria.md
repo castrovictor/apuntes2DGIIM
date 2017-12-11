@@ -298,3 +298,34 @@ struct mm_struct {
 }
 ```
 ![ejemplo de vm-area](images/vm_area.png)
+
+#### Explicación del ejemplo anterior
+
+Suponemos que un proceso proyecta los primeros 32KB (8 páginas) de un archivo en la dirección virtual 0x2000
+
+Los pasos del dibujo anterior:
++ Intenta leer la dirección 0x6008. Linux localiza la vm-área que cubre la dirección que provoca la falta (página 3).
++ Linux inicia la transferencia de la página 3.
++ Linux copia el contenido del archivo en el marco adecuado y actualiza la tabla de páginas. El proceso reanuda su ejecución. 
+
+![Descriptor ED](images/Desc_ED.PNG)
+
+
+![gestion falta de pagina](images/"Gestion_falt.PNG")
+
+### Mecanismo COW
+
+El mecanismo COW (copy-on-write) permite reducir:
++ Las operaciones de copia en memoria.
++ El número de copias de marcos.
++ El mecanismo permite que varios procesos compartan un
+marco de memoria. Si alguno de los procesos intenta escribir
+en la página compartida COW, el kernel asigna una nueva
+copia de la página al proceso escritor y realiza la escritura.
+
+> Implementación: La página compartida COW se marca
+como de solo lectura pero la vm-área correspondiente
+permite la escritura.
+
+
+![ejemplo COW](images/"Ejemplo Cow.PNG")
