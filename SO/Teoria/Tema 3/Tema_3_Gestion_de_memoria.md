@@ -311,7 +311,7 @@ Los pasos del dibujo anterior:
 ![Descriptor ED](images/Desc_ED.PNG)
 
 
-![gestion falta de pagina](images/"Gestion_falt.PNG")
+![gestion falta de pagina](images/Gestion_falt.PNG)
 
 ### Mecanismo COW
 
@@ -328,4 +328,4 @@ como de solo lectura pero la vm-área correspondiente
 permite la escritura.
 
 
-![ejemplo COW](images/"Ejemplo Cow.PNG")
+![ejemplo COW](images/Ejemplo%20COW.PNG)
