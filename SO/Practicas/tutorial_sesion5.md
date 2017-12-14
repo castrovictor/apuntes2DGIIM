@@ -139,7 +139,7 @@ void contar ()
 *La autoría de este código corresponde al blog nideaderedes.urlansoft.com*
 
 
-Ahora vamos a pasar a resolver el ejercicio 2 de la sesión. Se trata de escribir un programa en C que imprima las veces que se ha enviado la señal e imprima las que no puede manejar, *SIGKILL* y *SIGSTOP*, 9 y 14 respectivamente. El código es el siguiente.
+Ahora vamos a pasar a resolver el ejercicio 2 de la sesión. Se trata de escribir un programa en C que imprima las veces que se ha enviado la señal e imprima las que no puede manejar, *SIGKILL* y *SIGSTOP*, 9 y 19 respectivamente. El código es el siguiente.
 ~~~c
 #include <sys/types.h>
 #include <unistd.h>
@@ -177,14 +177,14 @@ int main() {
   for(i=1; i <= 35; i++) 
         signal(i,handler);
 
-  //Bucle infinito para que el programa se ejecute mientras no le mandemos las señales para terminar(9,14)
+  //Bucle infinito para que el programa se ejecute mientras no le mandemos las señales para terminar(9,19)
   while (1);
 
 }
 ~~~
-La explicación del código viene comentada dentro del mismo, en vez de desglosarlo fuera de él para evitar que se alargue demasiado el documento. Notar que aunque en el bucle *for* hayamos intentado modificar las señales 9 y 14, su comportamiento no se ha modificado, ya que el sistema lo impide, pero no da errores ni de ejecución ni de compilación.
+La explicación del código viene comentada dentro del mismo, en vez de desglosarlo fuera de él para evitar que se alargue demasiado el documento. Notar que aunque en el bucle *for* hayamos intentado modificar las señales 9 y 19, su comportamiento no se ha modificado, ya que el sistema lo impide, pero no da errores ni de ejecución ni de compilación.
 
-Ahora, para afianzar conceptos, vamos a hacerle algunas modificaciones. Contaremos las llamadas de la 1 a la 15, y la 16 la reservamos para abortar el proceso(a parte de la 9 y 14 que lo son por defecto). Cuando mandemos la señal 16, el proceso terminará, mostrando un mensaje por pantalla. El mensaje se muestra ya que lo hemos programado así, a diferencia de lo que ocurre al usar las llamadas 9 y 14.
+Ahora, para afianzar conceptos, vamos a hacerle algunas modificaciones. Contaremos las llamadas de la 1 a la 15, y la 16 la reservamos para abortar el proceso(a parte de la 9 y 19 que lo son por defecto). Cuando mandemos la señal 16, el proceso terminará, mostrando un mensaje por pantalla. El mensaje se muestra ya que lo hemos programado así, a diferencia de lo que ocurre al usar las llamadas 9 y 19.
 Las llamadas de la 17 a la 31, las vamos a desactivar, ya que no las usaremos ni queremos tenerlas en cuenta. Si el usuario realiza una de estas llamadas, el sistema, por defecto, termina el proceso.
 
 ~~~c
@@ -232,7 +232,7 @@ int main() {
  for(i=17; i <=35; i++)
 	signal(i,SIG_IGN);
 
-  //Bucle infinito para que el programa se ejeucte mientras no le mandemos las señales para terminar(9,14)
+  //Bucle infinito para que el programa se ejecute mientras no le mandemos las señales para terminar(9,19)
   while (1);
 
 }
@@ -290,7 +290,7 @@ int main() {
 }
 ~~~
 
-Creamos la estrucutura *sigaction* y a su campo *sa_handler*, le asociamos nuestra función *handle*, que lleva nuestro contador. Así, cuando invoquemos a *sigaction* como función, se podrá asociar a la señal indicada nuestra función. Es una forma un poco más tediosa de resolver el ejercicio, aunque nos es de utilidad para entender mejor los conceptos que vamos a tratar a continuación.
+Creamos la estrucutura *sigaction* y a su campo *sa_handler*, le asociamos nuestra función *handler*, que lleva nuestro contador. Así, cuando invoquemos a *sigaction* como función, se podrá asociar a la señal indicada nuestra función. Es una forma un poco más tediosa de resolver el ejercicio, aunque nos es de utilidad para entender mejor los conceptos que vamos a tratar a continuación.
 
 ## Trabajo con las llamadas al sistema sigsuspend y sigprocmask
 El siguiente código suspende la ejecución del proceso actual hasta que recibe una señal distinta de SIGUSR1.
@@ -307,7 +307,7 @@ sigemptyset(&new_mask);
 
 sigaddset(&new_mask, SIGUSR1);
 
-/*esperar a cualquier señal excepto SIGUSR1 */
+//Mantenemos el proceso en suspensión mientras le pasemos las señales que contiene new_mask, en este caso, contiene SIGUSR1
 sigsuspend(&new_mask);
 
 }
@@ -318,7 +318,7 @@ En C, podemos suspender la ejecución de un proceso con ayuda de las órdenes si
 1. Creamos la máscara con la orden ``sigset_t new_mask``.
 2. Vaciamos la máscara de lo que pudiera contener, para poder agregarle lo que queremos correctamente. Para eso utilizamos sigemptyset y le pasamos la máscara que acabamos de crear: ``sigemptyset(&new_mask)``.
 3. Añadimos la señal SIGUSR1 (o su equivalente numérico) a la máscara: ``sigaddset(&new_mask, SIGUSR1)``
-4. Finalmente, le decimos al proceso que se mantenga en suspensión mientras no le pasemos la orden SIGUSR1, que está en nuestra máscara: ``sigsuspend(&new_mask)``.
+4. Finalmente, le decimos al proceso que se mantenga en suspensión mientras le pasemos la orden SIGUSR1, que está en nuestra máscara: ``sigsuspend(&new_mask)``.
 
 
 Veamos otro ejemplo. Mediante los mismos mecanismos, ahora queremos justo lo contrario. Mientras le pasemos cualquier llamada, el proceso está en suspensión, y cuando le pasemos al proceso la llamada SIGSUR1, saldrá de su estado de suspensión.
