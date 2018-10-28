@@ -5,14 +5,14 @@
 Instrucción | Breve descripción | Sintaxis  
 --- | --- | ---   
 mknod | crea cauce de distintos tipo |  `int mknod (const char *FILENAME, mode_t MODE, dev_t DEV)`   
-mkfifo | crea cauce del tipo fifo : `int mkfifo (const char *FILENAME, mode_t MODE)`  
+mkfifo | crea cauce del tipo fifo :| `int mkfifo (const char *FILENAME, mode_t MODE)`  
 pipe | crea cauce sin nombre | `pipe `  
 unlink | eliminir un archivo de la pila de cauces abiertos | `unlink NOMBRE`  
 close | cerrar cauce lectura proceso anónimo | `close fd[0]` (lectura en este caso)  
 
 ## Concepto y tipos de cauce  
 
-Los cauces son un mecanismo que permite la lectura y escritura de datos entre procesos.  
+Los cauces son un mecanismo que permite la lectura y escritura de datos entre procesos. Además consiguen de manera la sincronización de estos.  
 - Sigue un paradigma productor/consumidor (productor: escribe, conumidor lee).
 - Tratamiento FIFO.
 - Permite la sincronización, un proceso se bloqueará mientras intenta leer de un buffer hasta que lo consiga.  
@@ -32,7 +32,7 @@ S_IFCHR | tipo de archivo caracteres
 S_IFBLF | tipo archivo de bloques  
 S_IFIFO | tipo de archivo FIFO  
 
-* DEV, dispositovo al qeu se refiere, utilizaremos 0. 
+* DEV, dispositovo al que se refiere, utilizaremos 0. 
 
 
 - En el caso concreto de querer crear un archivo FIFO, podemos  invocar a al llamada `mkfifo` cuya sintaxis es `int mkfifo (const char *FILENAME, mode_t MODE)`  
@@ -181,7 +181,7 @@ Ejemplo tabla de i-nodos tras utiliar la orden pipe:
 
 Nombre | Identificador | salida o entrada  
 --- | --- | ---  
-STDIN\_FILENO  0 | Entrada estándar, por defecto el teclado   
+STDIN\_FILENO | 0 | Entrada estándar, por defecto el teclado   
 STDOUT\_FILEENO | 1 | Salida estándar, por defecto consola activa  
 f[0] | 3 (El primer identificador libre) | Descriptor de lectura  
 f[1] | 4 | Descriptor de escritura   
@@ -197,8 +197,9 @@ f[1] | 4 | Descriptor de escritura
 f[0] | 5  | Descriptor de lectura duplicado   
 
 La orden **close** pone a NULL el puntero y **dup2** machaca el contenido: 
-¿Si se hace un `close(fd[0])` se machacarían los dos?
-¿Si se hiciera un `dup2(STDIN\_FILENO , f[0])` se sobreescribirái en los dos?
+
+- ¿Si se hace un `close(fd[0])` se machacarían los dos?
+- ¿Si se hiciera un `dup2(STDIN\_FILENO , f[0])` se sobreescribirái en los dos?
 
 ```c
 close(STDIN_FILENO);
@@ -209,6 +210,7 @@ STDIN\_FILENO | 0 | NULL (tras realizar el NULL)
 STDOUT\_FILEENO | 1 | Salida estándar, por defecto consola activa  
 
 `dup2(fd[0],STDIN_FILENO)`
+
 Nombre | Identificador | salida o entrada  
 --- | --- | ---  
 STDIN\_FILENO | 0 | Ahora tiene la entrada de f[0]  
